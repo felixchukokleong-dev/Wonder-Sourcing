@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Foshan — Wonder Sourcing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE1;
+    --paper-2:#E4DFD1;
+    --ink:#1C2321;
+    --ink-soft:#3C4340;
+    --stamp:#A6362C;
+    --teak:#A87C4F;
+    --steel:#445055;
+    --line:#C9C2AC;
+    --white:#FAF9F5;
+
+    --display: 'Oswald', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--stamp);display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--stamp);display:inline-block;}
+
+  h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;font-weight:600;line-height:1.04;}
+  :focus-visible{outline:2px solid var(--stamp);outline-offset:3px;}
+
+  header.site{position:sticky;top:0;z-index:50;background:rgba(237,234,225,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
+  .logo{font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:baseline;gap:8px;text-decoration:none;color:var(--ink);}
+  .logo small{font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.1em;}
+  .navlinks{display:flex;gap:30px;list-style:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;}
+  .navlinks a{text-decoration:none;position:relative;padding-bottom:4px;}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--stamp);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a.active::after{width:100%;}
+  .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--ink);padding:9px 16px;text-decoration:none;white-space:nowrap;}
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:14px 22px;text-decoration:none;display:inline-block;border:1px solid var(--ink);}
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--stamp);border-color:var(--stamp);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
+
+  .pagehero{padding:64px 0 48px;border-bottom:1px solid var(--line);}
+  .pagehero .crumb{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px;}
+  .pagehero .crumb a{text-decoration:none;border-bottom:1px dashed var(--ink-soft);}
+  .pagehero h1{font-size:clamp(34px,4.6vw,54px);margin:14px 0 20px;max-width:18ch;}
+  .pagehero p.lede{font-size:17px;max-width:58ch;color:var(--ink-soft);}
+
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:14px;}
+  .section-head p{color:var(--ink-soft);margin-top:16px;font-size:15.5px;}
+
+  /* districts map-ish grid */
+  .districts{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
+  }
+  .district{background:var(--paper);padding:30px 28px;position:relative;}
+  .district .code{font-family:var(--mono);font-size:11px;color:var(--stamp);letter-spacing:.08em;}
+  .district h3{font-size:21px;margin:8px 0 10px;}
+  .district p{color:var(--ink-soft);font-size:14.5px;}
+  .district .spec{
+    margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;
+  }
+
+  /* dark comparative section */
+  .compare{background:var(--ink);color:var(--paper);}
+  .compare .eyebrow{color:#D9B88A;}
+  .compare .eyebrow::before{background:#D9B88A;}
+  .compare h2{color:var(--white);}
+  .compare-table{width:100%;border-collapse:collapse;margin-top:14px;}
+  .compare-table th,.compare-table td{
+    text-align:left;padding:16px 18px;border-bottom:1px solid #3A4340;font-size:14.5px;
+  }
+  .compare-table th{
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#D9B88A;font-weight:400;
+  }
+  .compare-table td{color:#C6CCC9;}
+  .compare-table td.hl, .compare-table th.hl{color:var(--white);font-weight:500;}
+  .compare-table tr:last-child td{border-bottom:none;}
+
+  /* materials expanded */
+  .material-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .material{background:var(--paper);padding:24px;}
+  .material .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stamp);}
+  .material h4{font-family:var(--display);text-transform:uppercase;font-size:16px;margin:8px 0 6px;letter-spacing:.02em;}
+  .material p{color:var(--ink-soft);font-size:13.5px;margin:0;}
+
+  /* timeline / fair */
+  .timeline{border-top:1px solid var(--line);}
+  .tl-row{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:24px 0;border-bottom:1px dashed var(--line);}
+  .tl-row .month{font-family:var(--mono);font-size:12.5px;color:var(--stamp);letter-spacing:.05em;text-transform:uppercase;}
+  .tl-row h3{font-size:16px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:4px;letter-spacing:0;}
+  .tl-row p{color:var(--ink-soft);font-size:14px;}
+
+  .cta-strip{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;padding:80px 0;}
+  .cta-strip h2{font-size:clamp(26px,3.6vw,40px);margin:16px 0 28px;max-width:26ch;margin-left:auto;margin-right:auto;}
+
+  footer{background:var(--ink);color:#9FA8A5;padding:56px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid #3A4340;}
+  .foot-logo{font-family:var(--display);color:var(--white);font-size:20px;text-transform:uppercase;margin-bottom:14px;}
+  footer p{font-size:13.5px;line-height:1.6;max-width:34ch;}
+  footer h5{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#D9B88A;margin-bottom:14px;}
+  footer ul{list-style:none;}
+  footer li{margin-bottom:9px;font-size:13.5px;}
+  footer a{text-decoration:none;}
+  footer a:hover{color:var(--white);}
+  .foot-bottom{display:flex;justify-content:space-between;padding-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;flex-wrap:wrap;gap:10px;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){.reveal{transition:none;}}
+
+  @media (max-width:920px){
+    .districts{grid-template-columns:1fr;}
+    .material-list{grid-template-columns:1fr 1fr;}
+    .compare-table{font-size:13px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    .navlinks{display:none;}
+    .nav-cta{font-size:11px;padding:8px 12px;}
+    section{padding:60px 0;}
+    .material-list{grid-template-columns:1fr;}
+    .tl-row{grid-template-columns:1fr;gap:6px;}
+    .compare-table{display:block;overflow-x:auto;white-space:nowrap;}
+    .foot-grid{grid-template-columns:1fr;gap:28px;}
+  }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .whatsapp-float{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    z-index:60;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(28,35,33,0.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+    text-decoration:none;
+  }
+  .whatsapp-float:hover{
+    transform:scale(1.07);
+    box-shadow:0 8px 22px rgba(28,35,33,0.34);
+  }
+  .whatsapp-float svg{width:29px;height:29px;fill:#fff;}
+  .whatsapp-float .wa-label{
+    position:absolute;
+    right:70px;
+    background:var(--ink);
+    color:var(--white);
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.04em;
+    padding:8px 12px;
+    border-radius:3px;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    transform:translateX(6px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .whatsapp-float:hover .wa-label{opacity:1;transform:translateX(0);}
+  @media (max-width:640px){
+    .whatsapp-float{width:52px;height:52px;bottom:18px;right:18px;}
+    .whatsapp-float svg{width:26px;height:26px;}
+    .whatsapp-float .wa-label{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a class="logo" href="index.html">WONDER SOURCING <small>SOURCING &amp; EXPORT</small></a>
+    <ul class="navlinks">
+      <li><a href="services.html">Services</a></li>
+      <li><a class="active" href="why-foshan.html">Why Foshan</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="contact.html">Start a brief</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">Home</a> / Why Foshan</div>
+      <div class="eyebrow">The region</div>
+      <h1>Foshan is where the furniture already is.</h1>
+      <p class="lede">Most buyers hear "furniture from China" and picture Guangzhou or Shenzhen. The actual production base sits an hour further west, in Foshan's Shunde and Lecong districts — home to the largest concentration of furniture factories and wholesale markets anywhere in the world.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">The districts</div>
+        <h2>Three districts, three specialities.</h2>
+        <p>Foshan's furniture industry isn't one factory zone — it's split into districts that each grew around a different material and trade. Knowing which one makes what is most of what a sourcing agent is actually for.</p>
+      </div>
+      <div class="districts reveal">
+        <div class="district">
+          <div class="code">DISTRICT 01</div>
+          <h3>Lecong, Shunde</h3>
+          <p>Home to Lecong Furniture City, a wholesale market spanning thousands of showrooms — the largest furniture trading hub in the world by floor area. Strong in case goods, dining and bedroom sets.</p>
+          <div class="spec">Specialty: solid wood &amp; case goods</div>
+        </div>
+        <div class="district">
+          <div class="code">DISTRICT 02</div>
+          <h3>Shunde central</h3>
+          <p>Dense cluster of upholstery workshops supplying both residential and hospitality contracts, with fabric and leather sourced from mills within the same district.</p>
+          <div class="spec">Specialty: upholstered seating</div>
+        </div>
+        <div class="district">
+          <div class="code">DISTRICT 03</div>
+          <h3>Longjiang, Shunde</h3>
+          <p>Known for outdoor and rattan furniture production, serving resort and F&amp;B projects across Southeast Asia directly — a short logistics hop from the ports we ship to.</p>
+          <div class="spec">Specialty: rattan, wicker &amp; outdoor</div>
+        </div>
+        <div class="district">
+          <div class="code">DISTRICT 04</div>
+          <h3>Chancheng, central Foshan</h3>
+          <p>Where trading companies, freight forwarders and our own office are based — the administrative layer that ties the surrounding production districts together.</p>
+          <div class="spec">Specialty: trade, freight &amp; export services</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Sourcing directly vs. through Foshan</div>
+        <h2>What buyers usually discover after landing in the wrong city.</h2>
+        <p>Guangzhou and Shenzhen have furniture trading offices, but the factories themselves — and the price advantage of buying near the production line — sit in Foshan.</p>
+      </div>
+      <table class="compare-table reveal">
+        <tr>
+          <th></th>
+          <th class="hl">Buying via Foshan</th>
+          <th>Buying via a trading office</th>
+        </tr>
+        <tr>
+          <td>Factory access</td>
+          <td class="hl">Direct, on foot, same day</td>
+          <td>Through an intermediary, often video-only</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td class="hl">Factory FOB, no added layer</td>
+          <td>Trading company margin built in</td>
+        </tr>
+        <tr>
+          <td>Lead time on delays</td>
+          <td class="hl">Resolved same afternoon</td>
+          <td>Days, waiting on a relayed answer</td>
+        </tr>
+        <tr>
+          <td>Material range in one trip</td>
+          <td class="hl">Wood, upholstery &amp; rattan across 3 districts</td>
+          <td>Limited to what the office represents</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">What's made here</div>
+        <h2>Material categories in production across Foshan.</h2>
+      </div>
+      <div class="material-list reveal">
+        <div class="material">
+          <div class="tag">Solid wood</div>
+          <h4>Dining &amp; case goods</h4>
+          <p>Oak, ash and teak-look frames from Lecong workshops built for export packing.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Upholstery</div>
+          <h4>Sofas &amp; seating</h4>
+          <p>Fabric and leather seating lines serving hospitality and residential contracts.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Rattan &amp; wicker</div>
+          <h4>Outdoor &amp; resort</h4>
+          <p>Weather-rated pieces built for coastal resort and F&amp;B projects.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Metal &amp; glass</div>
+          <h4>Office &amp; commercial</h4>
+          <p>Steel-frame seating and glass-top tables for office and retail fit-outs.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Bedroom</div>
+          <h4>Mattresses &amp; storage</h4>
+          <p>Bed frames, wardrobes and mattress lines for hotel and residential volume orders.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Lighting &amp; decor</div>
+          <h4>Complementary lines</h4>
+          <p>Lighting and soft furnishings sourced from the same supplier network as an add-on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">On the ground</div>
+        <h2>The furniture calendar, if you want to see it yourself.</h2>
+        <p>If you'd rather walk the floor before committing to an order, these are the two windows the trade builds its year around.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-row">
+          <div class="month">March</div>
+          <div>
+            <h3>China International Furniture Fair (Guangzhou) — Foshan supplier presence</h3>
+            <p>Many Foshan factories exhibit here rather than run their own stand-alone events; we arrange factory visits either side of the fair dates.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">Year-round</div>
+          <div>
+            <h3>Lecong Furniture City showrooms</h3>
+            <p>Open year-round, so a buying trip doesn't need to be timed to a trade fair — we schedule visits around your own travel window.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">Sept–Oct</div>
+          <div>
+            <h3>Peak production season</h3>
+            <p>Factories run at highest capacity ahead of year-end holiday retail demand — worth planning around if your order is time-sensitive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap reveal">
+      <div class="eyebrow">See it yourself</div>
+      <h2>We'll plan a factory visit around the districts that match your product.</h2>
+      <a class="btn primary" href="contact.html">Plan a buying trip</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">WONDER SOURCING</div>
+        <p>Furniture sourcing, factory auditing and freight consolidation, based in Foshan, Guangdong — built for buyers across Southeast Asia.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="why-foshan.html">Why Foshan</a></li>
+          <li><a href="quality-control.html">Quality control</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Markets</h5>
+        <ul>
+          <li><a href="market-vietnam.html">Vietnam</a></li>
+          <li><a href="market-thailand.html">Thailand</a></li>
+          <li><a href="market-indonesia.html">Indonesia</a></li>
+          <li><a href="market-philippines.html">Philippines</a></li>
+          <li><a href="market-malaysia.html">Malaysia</a></li>
+          <li><a href="market-singapore.html">Singapore</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:inquiries@wondersourcing.example">inquiries@wondersourcing.example</a></li>
+          <li>Chancheng, Foshan, Guangdong</li>
+          <li>Mon–Sat, GMT+8</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 WONDER SOURCING CO.</span>
+      <span>DOCUMENT REF: WS-WHYFOSHAN-2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+
+<a class="whatsapp-float" href="https://wa.me/8613800000000?text=Hi%20Wonder%20Sourcing%2C%20I%27d%20like%20to%20ask%20about%20furniture%20sourcing." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <span class="wa-label">Chat on WhatsApp</span>
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.4.7 4.63 1.92 6.52L4 29l7.68-1.9A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm6.98 16.6c-.3.83-1.7 1.6-2.36 1.7-.6.1-1.36.14-2.2-.14-.5-.16-1.15-.38-1.98-.75-3.5-1.5-5.78-5.03-5.96-5.27-.17-.24-1.42-1.9-1.42-3.6s.9-2.55 1.22-2.9c.3-.33.68-.4.9-.4.23 0 .46 0 .66.01.21.01.5-.08.78.6.3.7.99 2.42 1.08 2.6.1.17.16.37.03.6-.13.25-.2.4-.4.62-.2.22-.4.5-.58.67-.2.2-.4.4-.17.8.22.4 1 1.64 2.14 2.66 1.47 1.3 2.7 1.7 3.1 1.9.4.2.63.16.86-.1.24-.26 1-1.16 1.27-1.56.27-.4.54-.33.9-.2.37.13 2.35 1.1 2.75 1.3.4.2.67.3.77.47.1.17.1.98-.2 1.8z"/></svg>
+</a>
+
+</body>
+</html>

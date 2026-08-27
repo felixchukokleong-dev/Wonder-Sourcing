@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wonder Sourcing — Furniture Sourcing for Southeast Asia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE1;
+    --paper-2:#E4DFD1;
+    --ink:#1C2321;
+    --ink-soft:#3C4340;
+    --stamp:#A6362C;
+    --teak:#A87C4F;
+    --steel:#445055;
+    --line:#C9C2AC;
+    --white:#FAF9F5;
+
+    --display: 'Oswald', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img,svg{display:block;max-width:100%;}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--stamp);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--stamp);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    font-family:var(--display);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    font-weight:600;
+    line-height:1.04;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--stamp);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(237,234,225,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--display);
+    font-size:20px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .logo small{
+    font-family:var(--mono);
+    font-size:10px;
+    color:var(--ink-soft);
+    letter-spacing:.1em;
+  }
+  .navlinks{
+    display:flex;
+    gap:30px;
+    list-style:none;
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+  .navlinks a{
+    text-decoration:none;
+    position:relative;
+    padding-bottom:4px;
+  }
+  .navlinks a::after{
+    content:"";
+    position:absolute;left:0;bottom:0;
+    width:0;height:1px;background:var(--stamp);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+  .burger{display:none;background:none;border:none;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:76px 0 40px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px,5vw,62px);
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--stamp);
+  }
+  .hero p.lede{
+    font-size:17px;
+    max-width:46ch;
+    color:var(--ink-soft);
+    margin-bottom:30px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:14px 22px;
+    text-decoration:none;
+    display:inline-block;
+    border:1px solid var(--ink);
+  }
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--stamp);border-color:var(--stamp);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
+
+  .hero-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+    max-width:46ch;
+  }
+
+  /* manifest / route panel */
+  .manifest{
+    background:var(--white);
+    border:1px solid var(--ink);
+    position:relative;
+    padding:26px 26px 20px;
+  }
+  .manifest::before{
+    content:"BILL OF LADING · FOSHAN → SEA";
+    position:absolute;
+    top:-11px;left:22px;
+    background:var(--paper);
+    padding:0 8px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+  }
+  .manifest svg{width:100%;height:auto;}
+  .route-caption{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    margin-top:10px;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+    text-transform:uppercase;
+  }
+
+  .route-line{
+    stroke-dasharray:6 6;
+    animation:dash 3.2s linear infinite;
+  }
+  .port-dot{
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes dash{ to { stroke-dashoffset:-120; } }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.35; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .route-line, .port-dot, .reveal{ animation:none !important; transition:none !important; }
+  }
+
+  /* ---------- STAT / MANIFEST BAR ---------- */
+  .statbar{
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    background:var(--paper-2);
+  }
+  .statbar .wrap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:22px 24px;
+    border-left:1px dashed var(--line);
+  }
+  .stat:first-child{border-left:none;}
+  .stat .num{
+    font-family:var(--display);
+    font-size:30px;
+    color:var(--stamp);
+  }
+  .stat .label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{
+    padding:96px 0;
+  }
+  .section-head{
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .section-head h2{
+    font-size:clamp(28px,3.4vw,40px);
+    margin-top:14px;
+  }
+  .section-head p{
+    color:var(--ink-soft);
+    margin-top:16px;
+    font-size:15.5px;
+  }
+
+  /* ---------- SERVICES / STEPS ---------- */
+  .steps{
+    position:relative;
+  }
+  .step-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    border-top:1px solid var(--line);
+    padding:30px 0;
+    gap:20px;
+  }
+  .step-row:last-child{border-bottom:1px solid var(--line);}
+  .step-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--stamp);
+    letter-spacing:.05em;
+  }
+  .step-num span{
+    display:block;
+    font-family:var(--display);
+    font-size:38px;
+    color:var(--ink);
+    letter-spacing:0;
+    margin-top:2px;
+  }
+  .step-body h3{
+    font-size:19px;
+    margin-bottom:8px;
+    letter-spacing:.02em;
+  }
+  .step-body p{
+    color:var(--ink-soft);
+    max-width:58ch;
+    font-size:15px;
+  }
+  .step-row:hover{background:var(--paper-2);}
+
+  /* ---------- WHY FOSHAN ---------- */
+  .foshan{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .foshan .eyebrow{color:#D9B88A;}
+  .foshan .eyebrow::before{background:#D9B88A;}
+  .foshan-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:start;
+  }
+  .foshan h2{color:var(--white);}
+  .foshan p{color:#BFC6C3;font-size:15.5px;margin-top:16px;max-width:52ch;}
+  .material-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:#3A4340;
+    margin-top:10px;
+  }
+  .material{
+    background:var(--ink);
+    padding:22px;
+  }
+  .material .tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teak);
+  }
+  .material h4{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-size:17px;
+    color:var(--white);
+    margin:8px 0 6px;
+    letter-spacing:.02em;
+  }
+  .material p{
+    color:#9FA8A5;
+    font-size:13.5px;
+    margin:0;
+  }
+
+  /* ---------- STAMP SEALS ---------- */
+  .seal{
+    width:96px;height:96px;
+    border-radius:50%;
+    border:1.5px solid var(--stamp);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    flex-shrink:0;
+    transform:rotate(-8deg);
+  }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border:1px solid var(--stamp);
+    border-radius:50%;
+  }
+  .seal-txt{
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.08em;
+    text-align:center;
+    color:var(--stamp);
+    text-transform:uppercase;
+    line-height:1.3;
+  }
+
+  /* ---------- MARKETS ---------- */
+  .markets-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .market{
+    background:var(--paper);
+    padding:26px 24px;
+  }
+  .market .flag-code{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--stamp);
+    letter-spacing:.08em;
+  }
+  .market h3{
+    font-size:19px;
+    margin:8px 0 6px;
+  }
+  .market p{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  a.market{
+    text-decoration:none;
+    color:var(--ink);
+    display:block;
+    transition:background .2s ease;
+  }
+  a.market:hover{background:var(--paper-2);}
+
+  .cta-strip{
+    background:var(--ink);
+    color:var(--white);
+    text-align:center;
+    padding:80px 0;
+  }
+  .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
+  .cta-strip .eyebrow::before{background:#D9B88A;}
+  .cta-strip h2{
+    color:var(--white);
+    font-size:clamp(26px,3.6vw,40px);
+    margin:16px 0 28px;
+    max-width:26ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .cta-strip .btn.primary{background:var(--stamp);border-color:var(--stamp);}
+  .cta-strip .btn.primary:hover{background:var(--white);color:var(--ink);border-color:var(--white);}
+
+  /* ---------- PROCESS DETAIL / QC ---------- */
+  .qc{
+    display:grid;
+    grid-template-columns:.95fr 1.05fr;
+    gap:64px;
+    align-items:center;
+  }
+  .qc-visual{
+    background:var(--white);
+    border:1px solid var(--ink);
+    padding:28px;
+    position:relative;
+  }
+  .qc-visual::before{
+    content:"QC-047 · PRE-SHIPMENT INSPECTION";
+    position:absolute;top:-11px;left:22px;
+    background:var(--paper);padding:0 8px;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:.06em;
+  }
+  .qc-checklist div{
+    display:flex;
+    justify-content:space-between;
+    padding:11px 0;
+    border-bottom:1px dashed var(--line);
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .qc-checklist div:last-child{border-bottom:none;}
+  .qc-checklist .pass{color:var(--stamp);font-weight:600;}
+  .qc ul.notes{
+    list-style:none;
+    margin-top:22px;
+  }
+  .qc ul.notes li{
+    padding-left:22px;
+    position:relative;
+    margin-bottom:16px;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+  .qc ul.notes li::before{
+    content:"—";
+    position:absolute;left:0;
+    color:var(--stamp);
+  }
+  .qc ul.notes li strong{color:var(--ink);}
+
+  /* ---------- TESTIMONIAL ---------- */
+  .testi{
+    background:var(--paper-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .testi-inner{
+    max-width:760px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .testi blockquote{
+    font-family:var(--display);
+    font-weight:500;
+    text-transform:none;
+    font-size:clamp(22px,3vw,30px);
+    line-height:1.35;
+    letter-spacing:0;
+  }
+  .testi cite{
+    display:block;
+    font-style:normal;
+    margin-top:22px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:64px;
+  }
+  .contact-info .item{
+    margin-bottom:26px;
+  }
+  .contact-info .item .k{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--stamp);
+    margin-bottom:6px;
+  }
+  .contact-info .item .v{
+    font-size:15.5px;
+  }
+  form.manifest-form{
+    background:var(--white);
+    border:1px solid var(--ink);
+    padding:32px;
+    position:relative;
+  }
+  form.manifest-form::before{
+    content:"SOURCING INQUIRY FORM";
+    position:absolute;top:-11px;left:22px;
+    background:var(--paper);padding:0 8px;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:.08em;
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:18px;
+  }
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1/-1;}
+  .field label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .field input,.field select,.field textarea{
+    font-family:var(--body);
+    font-size:14.5px;
+    border:none;
+    border-bottom:1px solid var(--line);
+    background:transparent;
+    padding:8px 2px;
+    color:var(--ink);
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;
+    border-bottom:1px solid var(--stamp);
+  }
+  .field textarea{resize:vertical;min-height:80px;}
+  .submit-btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:14px 22px;
+    background:var(--ink);
+    color:var(--paper);
+    border:1px solid var(--ink);
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .submit-btn:hover{background:var(--stamp);border-color:var(--stamp);}
+  .form-foot{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:14px;
+  }
+
+  /* ---------- BLOG / INSIGHTS TEASER ---------- */
+  .blog-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);
+  }
+  .blog-card{
+    background:var(--paper);padding:26px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;
+    transition:background .2s ease;
+  }
+  .blog-card:hover{background:var(--white);}
+  .blog-card .cat{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stamp);margin-bottom:10px;
+  }
+  .blog-card h3{font-size:17px;line-height:1.25;margin-bottom:10px;text-transform:none;font-family:var(--body);font-weight:600;letter-spacing:0;}
+  .blog-card p{font-size:13.5px;color:var(--ink-soft);flex-grow:1;}
+  .blog-card .more{
+    margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);
+    border-top:1px dashed var(--line);padding-top:10px;
+  }
+  @media (max-width:920px){ .blog-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:640px){ .blog-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:#9FA8A5;
+    padding:56px 0 26px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:40px;
+    border-bottom:1px solid #3A4340;
+  }
+  .foot-logo{
+    font-family:var(--display);
+    color:var(--white);
+    font-size:20px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  footer p{font-size:13.5px;line-height:1.6;max-width:34ch;}
+  footer h5{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#D9B88A;
+    margin-bottom:14px;
+  }
+  footer ul{list-style:none;}
+  footer li{margin-bottom:9px;font-size:13.5px;}
+  footer a{text-decoration:none;}
+  footer a:hover{color:var(--white);}
+  .foot-bottom{
+    display:flex;
+    justify-content:space-between;
+    padding-top:22px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.03em;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:none;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .foshan-grid{grid-template-columns:1fr;gap:36px;}
+    .qc{grid-template-columns:1fr;gap:36px;}
+    .contact{grid-template-columns:1fr;gap:40px;}
+    .statbar .wrap{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(3){border-left:none;}
+    .stat{border-bottom:1px dashed var(--line);}
+    .markets-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    .navlinks{display:none;}
+    .nav-cta{font-size:11px;padding:8px 12px;}
+    section{padding:64px 0;}
+    .step-row{grid-template-columns:1fr;gap:8px;}
+    .material-list{grid-template-columns:1fr;}
+    .markets-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;gap:28px;}
+  }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .whatsapp-float{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    z-index:60;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(28,35,33,0.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+    text-decoration:none;
+  }
+  .whatsapp-float:hover{
+    transform:scale(1.07);
+    box-shadow:0 8px 22px rgba(28,35,33,0.34);
+  }
+  .whatsapp-float svg{width:29px;height:29px;fill:#fff;}
+  .whatsapp-float .wa-label{
+    position:absolute;
+    right:70px;
+    background:var(--ink);
+    color:var(--white);
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.04em;
+    padding:8px 12px;
+    border-radius:3px;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    transform:translateX(6px);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .whatsapp-float:hover .wa-label{opacity:1;transform:translateX(0);}
+  @media (max-width:640px){
+    .whatsapp-float{width:52px;height:52px;bottom:18px;right:18px;}
+    .whatsapp-float svg{width:26px;height:26px;}
+    .whatsapp-float .wa-label{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a class="logo" href="index.html">WONDER SOURCING <small>SOURCING &amp; EXPORT</small></a>
+    <ul class="navlinks">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="why-foshan.html">Why Foshan</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="contact.html">Start a brief</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Foshan, Guangdong → Southeast Asia</div>
+        <h1>Furniture sourced in Foshan,<br><em>shipped ready to sell.</em></h1>
+        <p class="lede">We stand between your order sheet and 3,000 factories in Shunde and Lecong — auditing production, inspecting quality, and consolidating your containers, so buyers across Vietnam, Thailand, Indonesia, the Philippines and Malaysia can import with a local team on the ground.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="contact.html">Start a sourcing brief</a>
+          <a class="btn ghost" href="services.html">See how it works</a>
+        </div>
+        <div class="hero-note">No minimum order for factory audits. English, Vietnamese, Thai and Bahasa spoken in-office.</div>
+      </div>
+
+      <div class="manifest reveal">
+        <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg" aria-label="Shipping route from Foshan to Southeast Asian ports">
+          <!-- base map lines -->
+          <g stroke="#C9C2AC" stroke-width="1">
+            <line x1="30" y1="40" x2="30" y2="260"></line>
+            <line x1="30" y1="260" x2="430" y2="260"></line>
+          </g>
+          <!-- origin -->
+          <circle cx="70" cy="70" r="5" fill="#1C2321"></circle>
+          <text x="82" y="74" font-family="IBM Plex Mono" font-size="11" fill="#1C2321">FOSHAN (ORIGIN)</text>
+
+          <!-- routes -->
+          <path class="route-line" d="M70,70 C160,120 150,160 120,190" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C200,100 230,150 210,205" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C260,90 300,150 300,215" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C300,70 360,140 375,225" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+
+          <!-- ports -->
+          <circle class="port-dot" cx="120" cy="190" r="4" fill="#A6362C"></circle>
+          <text x="60" y="205" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">HO CHI MINH</text>
+
+          <circle class="port-dot" cx="210" cy="205" r="4" fill="#A6362C"></circle>
+          <text x="182" y="222" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">BANGKOK</text>
+
+          <circle class="port-dot" cx="300" cy="215" r="4" fill="#A6362C"></circle>
+          <text x="272" y="232" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">PORT KLANG</text>
+
+          <circle class="port-dot" cx="375" cy="225" r="4" fill="#A6362C"></circle>
+          <text x="333" y="242" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">MANILA</text>
+
+          <circle class="port-dot" cx="255" cy="255" r="4" fill="#A6362C"></circle>
+          <text x="220" y="252" font-family="IBM Plex Mono" font-size="10" fill="#3C4340" transform="translate(0,20)">JAKARTA</text>
+          <path class="route-line" d="M70,70 C230,140 260,190 255,255" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+        </svg>
+        <div class="route-caption">
+          <span>5 destination ports</span>
+          <span>Avg. transit 6–14 days</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT BAR -->
+  <div class="statbar">
+    <div class="wrap">
+      <div class="stat"><div class="num">240+</div><div class="label">Factories audited</div></div>
+      <div class="stat"><div class="num">1,100+</div><div class="label">Containers shipped / yr</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Years operating in Foshan</div></div>
+      <div class="stat"><div class="num">6</div><div class="label">Countries served in SE Asia</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES / STEPS -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">How it works</div>
+        <h2>One team, from your brief to your warehouse door.</h2>
+        <p>Sourcing furniture from China usually means juggling five vendors and a translator. We run the whole chain as one line item — you deal with one team, one invoice, one point of contact.</p>
+        <p style="margin-top:14px;"><a href="services.html" style="font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp);padding-bottom:2px;">Full service breakdown →</a></p>
+      </div>
+
+      <div class="steps">
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>01</span></div>
+          <div class="step-body">
+            <h3>Brief</h3>
+            <p>Send us your spec sheet, target price, order volume and delivery window — for a single hotel project or a recurring retail order. We reply with feasibility and a shortlist plan within 48 hours.</p>
+          </div>
+        </div>
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>02</span></div>
+          <div class="step-body">
+            <h3>Source</h3>
+            <p>We shortlist three to five factories from our vetted network across Shunde and Lecong, negotiate FOB pricing directly, and send samples or factory video walkthroughs before you commit.</p>
+          </div>
+        </div>
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>03</span></div>
+          <div class="step-body">
+            <h3>Inspect</h3>
+            <p>Our own QC staff — not the factory's — check production at three stages: pre-production materials, mid-line assembly, and pre-shipment packing. You get a photo report before anything ships.</p>
+          </div>
+        </div>
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>04</span></div>
+          <div class="step-body">
+            <h3>Consolidate</h3>
+            <p>Orders from multiple factories are palletised and combined into a single container at our Foshan warehouse, cutting freight cost and the number of shipments landing at your port.</p>
+          </div>
+        </div>
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>05</span></div>
+          <div class="step-body">
+            <h3>Ship</h3>
+            <p>We handle export customs declaration, book ocean freight to your nearest port, and prepare the commercial invoice, packing list and bill of lading your customs broker will need.</p>
+          </div>
+        </div>
+        <div class="step-row reveal">
+          <div class="step-num">STEP<span>06</span></div>
+          <div class="step-body">
+            <h3>Deliver</h3>
+            <p>We track the container to arrival and stay reachable until it clears customs and lands at your warehouse — with full documentation and QC reports on file.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS TEASER -->
+  <section style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Buyer resources</div>
+        <h2>Guides for sourcing and importing furniture from China.</h2>
+        <p>Practical answers to the questions we get asked most — from choosing FOB vs CIF pricing to what pre-shipment inspection actually catches.</p>
+      </div>
+      <div class="blog-grid reveal">
+        <a class="blog-card" href="how-to-source-furniture-from-foshan-china.html">
+          <div class="cat">Sourcing Basics</div>
+          <h3>How to Source Furniture from Foshan, China: A Complete Guide</h3>
+          <p>A step-by-step walkthrough of sourcing furniture from Foshan, from spec to landed container.</p>
+          <div class="more">Read article →</div>
+        </a>
+        <a class="blog-card" href="lcl-vs-fcl-furniture-shipping.html">
+          <div class="cat">Shipping & Logistics</div>
+          <h3>LCL vs FCL: Choosing the Right Container Option</h3>
+          <p>Cost, transit time and damage risk compared for furniture orders.</p>
+          <div class="more">Read article →</div>
+        </a>
+        <a class="blog-card" href="furniture-factory-vetting-checklist.html">
+          <div class="cat">Quality & Product</div>
+          <h3>How to Vet a Furniture Factory Before You Order</h3>
+          <p>A practical checklist for factory due diligence.</p>
+          <div class="more">Read article →</div>
+        </a>
+      </div>
+      <p style="margin-top:28px;"><a href="blog.html" style="font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp);padding-bottom:2px;">View all guides →</a></p>
+    </div>
+  </section>
+
+  <!-- WHY FOSHAN -->
+  <section id="foshan" class="foshan">
+    <div class="wrap foshan-grid">
+      <div class="reveal">
+        <div class="eyebrow">Why source here</div>
+        <h2>Foshan is where the furniture already is.</h2>
+        <p>Shunde and Lecong, both districts of Foshan, hold the largest concentration of furniture factories and wholesale markets in the world — Lecong Furniture City alone spans thousands of showrooms under one roof. Buyers who fly in expecting one factory usually find they need three: a frame maker, an upholsterer, a finisher. We already know which three.</p>
+        <p>Being based here means we visit production lines on foot, not by video call, and can react to a delay the same afternoon it happens.</p>
+        <p style="margin-top:14px;"><a href="why-foshan.html" style="font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:#D9B88A;text-decoration:none;border-bottom:1px solid #D9B88A;padding-bottom:2px;">More on Foshan's furniture districts →</a></p>
+      </div>
+      <div class="material-list reveal">
+        <div class="material">
+          <div class="tag">Solid wood</div>
+          <h4>Oak, ash &amp; teak-look frames</h4>
+          <p>From Lecong workshops producing dining and case goods at export volume.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Upholstery</div>
+          <h4>Fabric &amp; leather seating</h4>
+          <p>Shunde upholstery lines serving hospitality and residential contracts.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Rattan &amp; wicker</div>
+          <h4>Outdoor &amp; resort furniture</h4>
+          <p>Weather-rated pieces built for coastal resort and F&amp;B projects.</p>
+        </div>
+        <div class="material">
+          <div class="tag">Metal &amp; glass</div>
+          <h4>Commercial &amp; office lines</h4>
+          <p>Steel-frame seating and glass-top tables for office fit-outs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETS -->
+  <section id="markets">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Markets we ship to</div>
+        <h2>Regular sailings to five Southeast Asian ports.</h2>
+        <p>We quote freight to your nearest port and can recommend a customs broker on the receiving end if you don't already have one.</p>
+      </div>
+      <div class="markets-grid reveal">
+        <a class="market" href="market-vietnam.html">
+          <div class="flag-code">VN</div>
+          <h3>Vietnam</h3>
+          <p>Cat Lai Port, Ho Chi Minh City</p>
+        </a>
+        <a class="market" href="market-thailand.html">
+          <div class="flag-code">TH</div>
+          <h3>Thailand</h3>
+          <p>Laem Chabang Port, Bangkok</p>
+        </a>
+        <a class="market" href="market-indonesia.html">
+          <div class="flag-code">ID</div>
+          <h3>Indonesia</h3>
+          <p>Tanjung Priok Port, Jakarta</p>
+        </a>
+        <a class="market" href="market-philippines.html">
+          <div class="flag-code">PH</div>
+          <h3>Philippines</h3>
+          <p>Manila International Container Port</p>
+        </a>
+        <a class="market" href="market-malaysia.html">
+          <div class="flag-code">MY</div>
+          <h3>Malaysia</h3>
+          <p>Port Klang, Selangor</p>
+        </a>
+        <a class="market" href="market-singapore.html">
+          <div class="flag-code">SG</div>
+          <h3>Singapore</h3>
+          <p>PSA Singapore Terminal</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QC -->
+  <section id="qc">
+    <div class="wrap qc">
+      <div class="qc-visual reveal">
+        <div class="qc-checklist">
+          <div><span>Material &amp; hardware check</span><span class="pass">PASS</span></div>
+          <div><span>Joint &amp; frame stability</span><span class="pass">PASS</span></div>
+          <div><span>Finish &amp; colour match</span><span class="pass">PASS</span></div>
+          <div><span>Carton drop test</span><span class="pass">PASS</span></div>
+          <div><span>Quantity &amp; packing list match</span><span class="pass">PASS</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Quality control</div>
+        <h2>We inspect on your behalf, not the factory's.</h2>
+        <ul class="notes">
+          <li><strong>Independent staff.</strong> Our QC inspectors are salaried by us, not commissioned by the factories they're checking.</li>
+          <li><strong>Three inspection points.</strong> Materials on arrival, mid-production assembly, and a final pre-shipment check against your approved sample.</li>
+          <li><strong>Photo &amp; video reports.</strong> Delivered before loading, so you can approve or hold a shipment from anywhere.</li>
+          <li><strong>Claims support.</strong> If something ships faulty, we hold the factory to the fix — it's our relationship on the line, every order.</li>
+        </ul>
+        <p style="margin-top:14px;"><a href="quality-control.html" style="font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp);padding-bottom:2px;">Full quality control process →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testi">
+    <div class="wrap testi-inner reveal">
+      <blockquote>"We stopped flying staff to Guangdong every quarter. Wonder Sourcing sends the inspection photos before we even ask for them."</blockquote>
+      <cite>— Purchasing Manager, resort furnishings group, Bali</cite>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact" class="cta-strip">
+    <div class="wrap reveal">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Tell us what you're sourcing, and we'll reply within 48 hours.</h2>
+      <a class="btn primary" href="contact.html">Start a sourcing brief</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">WONDER SOURCING</div>
+        <p>Furniture sourcing, factory auditing and freight consolidation, based in Foshan, Guangdong — built for buyers across Southeast Asia.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="why-foshan.html">Why Foshan</a></li>
+          <li><a href="quality-control.html">Quality control</a></li>
+          <li><a href="blog.html">Insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Markets</h5>
+        <ul>
+          <li><a href="market-vietnam.html">Vietnam</a></li>
+          <li><a href="market-thailand.html">Thailand</a></li>
+          <li><a href="market-indonesia.html">Indonesia</a></li>
+          <li><a href="market-philippines.html">Philippines</a></li>
+          <li><a href="market-malaysia.html">Malaysia</a></li>
+          <li><a href="market-singapore.html">Singapore</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:hello@wondersourcing.com">hello@wondersourcing.com</a></li>
+          <li>Chancheng, Foshan, Guangdong</li>
+          <li>Mon–Sat, GMT+8</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Wonder Sourcing</span>
+      <span>DOCUMENT REF: WS-SITE-2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+
+<a class="whatsapp-float" href="https://wa.me/8618941315597?text=Hi%20Wonder%20Sourcing%2C%20I%27d%20like%20to%20ask%20about%20furniture%20sourcing." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <span class="wa-label">Chat on WhatsApp</span>
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.4.7 4.63 1.92 6.52L4 29l7.68-1.9A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3zm6.98 16.6c-.3.83-1.7 1.6-2.36 1.7-.6.1-1.36.14-2.2-.14-.5-.16-1.15-.38-1.98-.75-3.5-1.5-5.78-5.03-5.96-5.27-.17-.24-1.42-1.9-1.42-3.6s.9-2.55 1.22-2.9c.3-.33.68-.4.9-.4.23 0 .46 0 .66.01.21.01.5-.08.78.6.3.7.99 2.42 1.08 2.6.1.17.16.37.03.6-.13.25-.2.4-.4.62-.2.22-.4.5-.58.67-.2.2-.4.4-.17.8.22.4 1 1.64 2.14 2.66 1.47 1.3 2.7 1.7 3.1 1.9.4.2.63.16.86-.1.24-.26 1-1.16 1.27-1.56.27-.4.54-.33.9-.2.37.13 2.35 1.1 2.75 1.3.4.2.67.3.77.47.1.17.1.98-.2 1.8z"/></svg>
+</a>
+
+</body>
+</html>
