@@ -362,6 +362,19 @@
     .whatsapp-float .wa-label{display:none;}
   }
 </style>
+<!-- ws:analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VTRDBDYT7Y');</script>
+<script>(function(){
+function t(n,p){if(typeof gtag==='function')gtag('event',n,p||{});}
+document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+if(!a)return;var h=a.getAttribute('href')||'';
+if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});
+else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
+document.addEventListener('submit',function(e){var f=e.target;
+if(f&&f.classList&&f.classList.contains('manifest-form'))t('form_submit',{form_id:'sourcing_inquiry'});},true);
+})();</script>
+<!-- ws:analytics:end -->
 </head>
 <body>
 
@@ -420,11 +433,11 @@
         <div class="form-row">
           <div class="field">
             <label for="company">Company</label>
-            <input id="company" type="text" required>
+            <input id="company" name="company" type="text" required>
           </div>
           <div class="field">
             <label for="country">Country</label>
-            <select id="country">
+            <select id="country" name="country">
               <option>Vietnam</option>
               <option>Thailand</option>
               <option>Indonesia</option>
@@ -438,21 +451,22 @@
         <div class="form-row">
           <div class="field">
             <label for="category">Product category</label>
-            <input id="category" type="text" placeholder="e.g. hotel casegoods">
+            <input id="category" name="category" type="text" placeholder="e.g. hotel casegoods">
           </div>
           <div class="field">
             <label for="volume">Est. monthly volume</label>
-            <input id="volume" type="text" placeholder="e.g. 1 x 40ft container">
+            <input id="volume" name="volume" type="text" placeholder="e.g. 1 x 40ft container">
           </div>
         </div>
         <div class="form-row">
           <div class="field full">
             <label for="message">Project details</label>
-            <textarea id="message" placeholder="Product type, target price, timeline..."></textarea>
+            <textarea id="message" name="message" placeholder="Product type, target price, timeline..."></textarea>
           </div>
         </div>
         <button class="submit-btn" type="submit">Submit inquiry</button>
-        <div class="form-foot">Submitting opens your email app with this pre-filled, addressed to hello@wondersourcing.com.</div>
+        <p class="form-status" role="status" aria-live="polite" style="display:none;margin:12px 0 0;font-family:var(--mono);font-size:12px;line-height:1.55;letter-spacing:.02em;color:var(--ink-soft);"></p>
+        <div class="form-foot">Your brief is pre-filled and ready to send — WhatsApp on mobile, or your email app. Or write to <a href="mailto:hello@wondersourcing.com" style="color:var(--stamp);text-decoration:underline;">hello@wondersourcing.com</a>. We reply within 48 hours.</div>
       </form>
     </div>
   </section>
@@ -538,6 +552,20 @@
   },{threshold:0.15});
   els.forEach(el=>io.observe(el));
 
+  // ---- inquiry delivery ---------------------------------------------------
+  // Briefs are dispatched to WhatsApp pre-filled, which needs no backend and
+  // cannot fail silently the way a mailto: link can (no mail client = nothing
+  // happens, and the lead is lost without trace).
+  // To receive briefs by POST instead, set INQUIRY_ENDPOINT to a form endpoint,
+  // e.g. 'https://formspree.io/f/abcdwxyz' or a Web3Forms/Vercel function URL.
+  const INQUIRY_ENDPOINT = '';
+  const WHATSAPP_NUMBER  = '8618941315597';
+  const CONTACT_EMAIL    = 'hello@wondersourcing.com';
+
+  function track(name, params){
+    if(typeof gtag === 'function') gtag('event', name, params || {});
+  }
+
   function handleInquirySubmit(event, form){
     event.preventDefault();
 
@@ -547,8 +575,11 @@
     const volume   = form.querySelector('#volume').value.trim();
     const message  = form.querySelector('#message').value.trim();
 
+    const btn    = form.querySelector('.submit-btn');
+    const status = form.querySelector('.form-status');
+
     const subject = `Sourcing inquiry — ${company || 'New inquiry'}`;
-    const bodyLines = [
+    const brief = [
       `Company: ${company}`,
       `Country: ${country}`,
       `Product category: ${category}`,
@@ -556,15 +587,56 @@
       '',
       'Project details:',
       message
-    ];
+    ].join('\n');
 
-    const mailto = `mailto:hello@wondersourcing.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+    const waHref   = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(brief)}`;
+    const mailHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(brief)}`;
 
-    const btn = form.querySelector('.submit-btn');
-    btn.textContent = 'Opening your email app…';
-    window.location.href = mailto;
+    function say(msg, ok, href, linkText){
+      if(!status) return;
+      status.style.display = 'block';
+      status.style.color = ok ? 'var(--ink-soft)' : 'var(--stamp)';
+      status.textContent = msg;
+      if(href){
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = linkText;
+        a.style.cssText = 'color:var(--stamp);text-decoration:underline;margin-left:5px;';
+        a.addEventListener('click', ()=>track('contact_email', {link_url:href}));
+        status.appendChild(a);
+      }
+    }
+    function reset(){
+      btn.disabled = false;
+      btn.textContent = 'Submit inquiry';
+    }
 
-    setTimeout(()=>{ btn.textContent = 'Submit inquiry'; }, 4000);
+    if(INQUIRY_ENDPOINT){
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      say('Sending your brief…', true);
+      fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({company, country, category, volume, message, subject})
+      }).then(res=>{
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        track('generate_lead', {form_id:'sourcing_inquiry', method:'endpoint'});
+        form.reset();
+        btn.textContent = 'Inquiry sent';
+        say('Thank you — your brief is with us. We reply within 48 hours.', true);
+        setTimeout(reset, 8000);
+      }).catch(()=>{
+        reset();
+        say('We could not send that automatically. Send it on WhatsApp instead —', false, waHref, 'open WhatsApp');
+      });
+    } else {
+      track('generate_lead', {form_id:'sourcing_inquiry', method:'whatsapp'});
+      window.open(waHref, '_blank', 'noopener');
+      btn.textContent = 'Opening WhatsApp…';
+      say('Your brief is pre-filled in WhatsApp — just hit send. Nothing opened?', true, waHref, 'Open WhatsApp');
+      setTimeout(reset, 8000);
+    }
     return false;
   }
 </script>

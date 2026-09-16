@@ -28,7 +28,7 @@ def build(ga4, gsc):
     out.append("if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});")
     out.append("else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);")
     out.append("document.addEventListener('submit',function(e){var f=e.target;")
-    out.append("if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);")
+    out.append("if(f&&f.classList&&f.classList.contains('manifest-form'))t('form_submit',{form_id:'sourcing_inquiry'});},true);")
     out.append('})();</script>')
     out.append(END)
     return '\n'.join(out)
@@ -40,8 +40,20 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--ga4'); ap.add_argument('--gsc')
     ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--remove', action='store_true')
+    ap.add_argument('--dir', default=REPO, help='directory to operate on (default: the repo)')
     a = ap.parse_args()
-    os.chdir(REPO)
+
+    if a.ga4:
+        a.ga4 = a.ga4.strip()
+        if not re.fullmatch(r'G-[A-Za-z0-9]{4,16}', a.ga4):
+            sys.exit('ERROR: --ga4 does not look like a GA4 measurement ID.\n'
+                     '       Expected the form G-AB12CD34EF (GA4 > Admin > Data streams).')
+    if a.gsc:
+        a.gsc = a.gsc.strip()
+    if not a.remove and not (a.ga4 or a.gsc):
+        sys.exit('ERROR: nothing to do - pass --ga4 and/or --gsc, or --remove.')
+
+    os.chdir(a.dir)
     block = build(a.ga4 or '', a.gsc or '')
 
     files = sorted(f for f in os.listdir('.') if f.endswith('.html'))
