@@ -1,0 +1,15 @@
+# Files excluded from the Vercel deployment.
+#
+# tools/ holds internal notes and scripts - including OFFPAGE-GUIDE.md, which
+# discusses the Hong Kong entity route and the NAP conflict between the
+# registered address and the address published on the site. Those files were
+# reachable at /tools/... on the live domain. Excluding them here means they are
+# never uploaded, so the URLs return 404 at the CDN.
+#
+# They stay in git; nothing on the site references them.
+tools/
+.git/
+.github/
+.gitignore
+.vercelignore
+*.md

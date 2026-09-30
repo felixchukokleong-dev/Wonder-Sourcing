@@ -347,7 +347,7 @@ if(!a)return;var h=a.getAttribute('href')||'';
 if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});
 else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
 document.addEventListener('submit',function(e){var f=e.target;
-if(f&&f.classList&&f.classList.contains('manifest-form'))t('form_submit',{form_id:'sourcing_inquiry'});},true);
+if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);
 })();</script>
 <!-- ws:analytics:end -->
 </head>

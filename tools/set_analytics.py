@@ -28,7 +28,7 @@ def build(ga4, gsc):
     out.append("if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});")
     out.append("else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);")
     out.append("document.addEventListener('submit',function(e){var f=e.target;")
-    out.append("if(f&&f.classList&&f.classList.contains('manifest-form'))t('form_submit',{form_id:'sourcing_inquiry'});},true);")
+    out.append("if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);")
     out.append('})();</script>')
     out.append(END)
     return '\n'.join(out)
