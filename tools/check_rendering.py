@@ -137,6 +137,29 @@ def js_adds_class(js, token):
     return False
 
 
+def js_toggles_attribute(js, attr):
+    """Does any inline script add or remove this attribute on an element?
+
+    Covers `el.hidden = false`, `removeAttribute('hidden')`,
+    `toggleAttribute('hidden')` and `setAttribute('aria-hidden', ...)`. An
+    element hidden by `[hidden]` in CSS and revealed by script is a legitimate
+    pattern that no class-based check can see.
+    """
+    a = re.escape(attr)
+    pats = [
+        r'removeAttribute\s*\(\s*[\'"]%s[\'"]' % a,
+        r'toggleAttribute\s*\(\s*[\'"]%s[\'"]' % a,
+        r'setAttribute\s*\(\s*[\'"]%s[\'"]' % a,
+        r'\.\s*%s\s*=' % a,
+    ]
+    return any(re.search(p, js) for p in pats)
+
+
+def attr_tokens(bare):
+    """Attribute names a selector tests, e.g. .x[hidden] -> {'hidden'}."""
+    return set(re.findall(r'\[([a-zA-Z_][\w-]*)', bare))
+
+
 def aliases_of_getelementbyid(js):
     """Names that resolve to document.getElementById."""
     names = set(['document.getElementById'])
@@ -216,7 +239,7 @@ def analyse(path):
                     reveals.append((target, tokens, tokens - ttokens, has_pseudo))
 
     fails = []
-    ok_css = ok_js = 0
+    ok_css = ok_js = ok_attr = 0
 
     # A rule can only hide something if an element actually carries its class or
     # id. Rules that match nothing are dead CSS - worth reporting, but they are
@@ -233,6 +256,13 @@ def analyse(path):
     for sel, (props, _tokens) in sorted(live.items()):
         rel = [r for r in reveals if r[0] == sel]
         if not rel:
+            # An attribute-qualified rule - .form-fallback[hidden] - is revealed
+            # by script removing the attribute, not by another CSS rule. No
+            # class-based check can see that, so test it explicitly.
+            attrs = attr_tokens(sel)
+            if attrs and any(js_toggles_attribute(js, a) for a in attrs):
+                ok_attr += 1
+                continue
             fails.append(('hid', sel, 'hidden with %s and never restored'
                           % '/'.join(sorted(props))))
             continue
@@ -260,7 +290,8 @@ def analyse(path):
             seen.add((expr,))
             fails.append(('dom', expr, 'no element has id="%s"' % _id))
 
-    return dict(hidden=live, dead=dead, fails=fails, ok_css=ok_css, ok_js=ok_js)
+    return dict(hidden=live, dead=dead, fails=fails, ok_css=ok_css,
+                ok_js=ok_js, ok_attr=ok_attr)
 
 
 LABEL = {'hid': 'HIDDEN FOREVER', 'cls': 'NO SCRIPT REVEALS IT',
@@ -283,13 +314,14 @@ def main():
         sys.exit('No .html files in %s' % a.dir)
 
     total = collections.Counter()
-    n_css = n_js = 0
+    n_css = n_js = n_attr = 0
     failed = []
     dead_all = []
     for f in pages:
         r = analyse(f)
         n_css += r['ok_css']
         n_js += r['ok_js']
+        n_attr += r['ok_attr']
         for sel in r['dead']:
             dead_all.append((f, sel))
         for kind, where, why in r['fails']:
@@ -309,8 +341,9 @@ def main():
             print('  %-28s %s' % (f, sel))
         print()
 
-    print('checked %d pages - %d hidden selectors revealed without JS, '
-          '%d revealed by a class some script adds' % (len(pages), n_css, n_js))
+    print('checked %d pages - %d hidden by a pseudo-class (no JS needed), '
+          '%d revealed by a class a script adds, %d revealed by a script '
+          'toggling an attribute' % (len(pages), n_css, n_js, n_attr))
     if total:
         print('FAIL: %d problem(s) on %d page(s) - %s'
               % (sum(total.values()), len(failed),
