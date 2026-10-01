@@ -68,6 +68,18 @@ WhatsApp button's `Chat on WhatsApp` label is hidden at `opacity:0` and revealed
 by `.whatsapp-float:hover`, and a naive check would have reported 71 false
 positives.
 
+There is a third reveal path, added after the contact form gained one. An
+element hidden by an attribute selector — `.form-fallback[hidden]` — is revealed
+by script *removing the attribute*, not by adding a class. `js_toggles_attribute()`
+covers `removeAttribute`, `toggleAttribute`, `setAttribute` and `el.hidden = ...`,
+so those are recognised rather than reported as failures.
+
+That case is worth understanding, because the first version of this check
+reported `.form-fallback[hidden]` as HIDDEN FOREVER when it was working
+perfectly well. **A guard that blocks legitimate work gets switched off**, so the
+false positive was fixed immediately — and both original failure modes were
+re-tested afterwards to confirm the fix had not opened a false negative.
+
 **3. JS dereference of a missing element.** `document.getElementById('x').value`
 where no element has `id="x"`. That throws, killing the remainder of the script
 block, so anything later in the same block silently never runs. Aliases such as
