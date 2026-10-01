@@ -361,6 +361,21 @@
     .whatsapp-float svg{width:26px;height:26px;}
     .whatsapp-float .wa-label{display:none;}
   }
+
+  /* ---------- markets comparison ---------- */
+  .market-prose{max-width:72ch;}
+  .market-prose p{color:var(--ink-soft);font-size:15.5px;line-height:1.72;margin-bottom:16px;}
+  .market-prose p:last-child{margin-bottom:0;}
+  .market-table{width:100%;border-collapse:collapse;margin:6px 0 4px;}
+  .market-table th,.market-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:14.5px;vertical-align:top;}
+  .market-table th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--stamp);font-weight:400;}
+  .market-table td{color:var(--ink-soft);}
+  .market-table td:first-child{color:var(--ink);}
+  .market-table tr:last-child td{border-bottom:none;}
+  @media (max-width:640px){
+    .market-table{display:block;overflow-x:auto;}
+  }
+
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
@@ -442,6 +457,62 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
           <div class="more">View market →</div>
         </a>
       </div>
+    </div>
+  </section>
+
+  <section style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Side by side</div>
+        <h2>The six markets at a glance.</h2>
+      </div>
+      <div class="reveal" style="overflow-x:auto;">
+        <table class="market-table">
+          <thead>
+            <tr><th>Market</th><th>Main port</th><th>Ocean transit</th><th>Destination tax (example)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vietnam</td><td>Cat Lai, Ho Chi Minh City</td><td>3&ndash;5 days</td><td>VAT 10%</td></tr>
+            <tr><td>Thailand</td><td>Laem Chabang, Bangkok</td><td>4&ndash;6 days</td><td>VAT 7%</td></tr>
+            <tr><td>Indonesia</td><td>Tanjung Priok, Jakarta</td><td>7&ndash;10 days</td><td>PPN 11%</td></tr>
+            <tr><td>Philippines</td><td>Manila International Container Port</td><td>5&ndash;7 days</td><td>VAT 12%</td></tr>
+            <tr><td>Malaysia</td><td>Port Klang, Selangor</td><td>4&ndash;6 days</td><td>SST 10%</td></tr>
+            <tr><td>Singapore</td><td>PSA Singapore</td><td>4&ndash;5 days</td><td>GST 9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="market-prose reveal" style="margin-top:18px;">
+        <p>The tax column repeats the examples the calculator pre-fills, and they are examples only. Rates change, they depend on the HS code each line is classified under, and Malaysia&rsquo;s SST is a sales tax rather than a VAT. Confirm current figures with your own customs broker before quoting them onward.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Choosing a port</div>
+        <h2>Pick the entry point before you pick the price.</h2>
+      </div>
+      <div class="market-prose reveal">
+        <p>Transit time is the number buyers compare first, and it is the least useful one on its own. The port you clear at, and how far the goods then travel inland, usually determines your real delivery date &mdash; and your real cost &mdash; more than the ocean leg does. A shipment to Cebu clears at Manila and moves again. A shipment to Penang clears at Port Klang and moves again. Each of those second legs runs on its own schedule.</p>
+        <p>So the useful question is not which port is fastest, but where your cargo actually needs to end up. Delivering to one location near a major port makes the shortest transit genuinely the cheapest route. Distributing across a country, or furnishing a project away from the main port, makes the inland transfer a stage worth planning in its own right.</p>
+        <p>If your destination is not in this list, ask us anyway &mdash; we can quote freight to most ports in the region.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Common ground</div>
+        <h2>What does not change between markets.</h2>
+      </div>
+      <ul class="plain-notes reveal" style="max-width:70ch;">
+        <li><strong>Preferential origin needs Form E.</strong> All six sit inside the ASEAN&ndash;China free trade area. Goods of Chinese origin can qualify for preferential duty rates when a valid Form E certificate of origin accompanies them and agrees with the commercial invoice and packing list.</li>
+        <li><strong>Classification decides the rate.</strong> Import duty follows the HS code declared for each line, not the category name on the order. Mixed containers need classification for every product in them.</li>
+        <li><strong>FOB is not landed cost.</strong> Whatever the market, the number that matters is what the goods cost once they are in your warehouse &mdash; duty, tax, freight, insurance, the sourcing fee and inland delivery included.</li>
+        <li><strong>Inspection happens before loading, everywhere.</strong> A defect corrected at the factory costs a day. The same defect found after arrival costs a return, a replacement and the margin on the order.</li>
+      </ul>
     </div>
   </section>
 
