@@ -200,19 +200,29 @@ def selector_tokens(bare):
 # --------------------------------------------------------------------------
 # per-page analysis
 # --------------------------------------------------------------------------
-def analyse(path):
-    html = open(path, encoding='utf-8').read()
+def local_stylesheets(html, base_dir):
+    """Local stylesheets the page links, in document order.
 
-    styles = re.findall(r'<style[^>]*>([\s\S]*?)</style>', html)
-    blocks = re.findall(r'<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)</script>', html)
-    js = '\n'.join(b for b in blocks if b.strip())
+    Remote links (Google Fonts) and data: URIs are skipped - they are not part
+    of this repository and cannot be inspected. Returns [(href, css)].
+    """
+    out = []
+    for tag in re.findall(r'<link[^>]*rel=["\']stylesheet["\'][^>]*>', html):
+        m = re.search(r'href=["\']([^"\']+)["\']', tag)
+        if not m:
+            continue
+        href = m.group(1)
+        if href.startswith(('http://', 'https://', '//', 'data:')):
+            continue
+        p = os.path.join(base_dir, href.split('?')[0].split('#')[0])
+        if os.path.exists(p):
+            out.append((href, open(p, encoding='utf-8').read()))
+    return out
 
-    rules = []
-    for st in styles:
-        rules.extend(parse_css(st))
 
-    # hidden selectors at top level, with the properties used to hide them
-    hidden = {}   # bare selector -> (props, tokens)
+def collect_hidden(rules):
+    """Top-level selectors that hide their element, with the properties used."""
+    hidden = {}
     for ctx, sel, decl in rules:
         if ctx:
             continue                      # media-scoped hiding is intentional
@@ -224,6 +234,32 @@ def analyse(path):
                     hidden[bare][0].update(props)
                 else:
                     hidden[bare] = (set(props), tokens)
+    return hidden
+
+
+def analyse(path):
+    html = open(path, encoding='utf-8').read()
+
+    styles = re.findall(r'<style[^>]*>([\s\S]*?)</style>', html)
+    blocks = re.findall(r'<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)</script>', html)
+    js = '\n'.join(b for b in blocks if b.strip())
+
+    rules = []
+    for st in styles:
+        rules.extend(parse_css(st))
+    rules_inline = list(rules)
+    sheets = local_stylesheets(html, os.path.dirname(os.path.abspath(path)))
+    for _href, css in sheets:
+        rules.extend(parse_css(css))
+
+    # Checks 1 and 2 need every stylesheet the page actually loads, inline or
+    # linked. Since the CSS extraction moved ~1.4 MB of rules into styles.css,
+    # reading only inline <style> would let this guard pass vacuously - it would
+    # no longer see .reveal at all, and so could not catch the calculator bug.
+    hidden = collect_hidden(rules)
+    # Dead-CSS reporting stays on the page's OWN rules: a selector in a shared
+    # sheet is expected to match nothing on most of the pages that load it.
+    hidden_inline = collect_hidden(rules_inline)
 
     # every rule that restores one of those properties, and how it qualifies
     reveals = []
@@ -245,15 +281,15 @@ def analyse(path):
     # id. Rules that match nothing are dead CSS - worth reporting, but they are
     # not invisible content, and a guard that cries wolf gets switched off.
     classes, ids = markup_tokens(html)
-    dead, live = [], {}
-    for sel, (props, tokens) in hidden.items():
+    dead = []
+    for sel in hidden_inline:
         sc, si = selector_tokens(sel)
         if (sc or si) and not (sc & classes) and not (si & ids):
             dead.append(sel)
-        else:
-            live[sel] = (props, tokens)
 
-    for sel, (props, _tokens) in sorted(live.items()):
+    # Checks 1 and 2 run over EVERYTHING the page loads, linked sheets included.
+    # Only the dead-CSS report above is limited to the page's own rules.
+    for sel, (props, _tokens) in sorted(hidden.items()):
         rel = [r for r in reveals if r[0] == sel]
         if not rel:
             # An attribute-qualified rule - .form-fallback[hidden] - is revealed
@@ -290,7 +326,7 @@ def analyse(path):
             seen.add((expr,))
             fails.append(('dom', expr, 'no element has id="%s"' % _id))
 
-    return dict(hidden=live, dead=dead, fails=fails, ok_css=ok_css,
+    return dict(hidden=hidden, dead=dead, fails=fails, ok_css=ok_css,
                 ok_js=ok_js, ok_attr=ok_attr)
 
 

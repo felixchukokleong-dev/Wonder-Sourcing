@@ -9,6 +9,7 @@ safe.
 | `check_rendering.py` | Fails if content is hidden by CSS with nothing to reveal it | Before every push — a pre-push hook runs it |
 | `build_sitemap.py` | Rebuilds `sitemap.xml` from the files that exist | After adding or removing any page |
 | `build_legal.py` | Regenerates `privacy-policy.html` and `terms.html` from the site shell | After editing the wording in the script |
+| `extract_css.py` | Moves the CSS shared across pages into `styles.css` / `styles-guides.css` | Only after adding pages that share the existing sheet |
 | `internal_links.py` | Regenerates the "Related guides" blocks on every article | After adding or removing an article |
 | `set_analytics.py` | Injects or removes the GA4 block and event tracking | After changing the measurement ID |
 | `optimize_images.py` | Builds responsive image variants from source photographs | After adding source images |
@@ -40,6 +41,37 @@ present, and cannot disagree with them.
 `build_legal.py` reads `contact.html` and reuses its head, nav, footer,
 stylesheet and analytics block. That is deliberate: hand-copying a page shell is
 how the calculator page ended up missing a script that the other 70 pages had.
+
+## Extracting shared CSS
+
+`extract_css.py` moved 1.4 MB of duplicated CSS out of the pages and into two
+cached files, taking the average page from 37.8 KB to 18.9 KB. It works by
+splitting each page's inline CSS at a rule boundary:
+
+```
+original inline CSS  ==  styles.css  +  styles-guides.css  +  what stays inline
+```
+
+Because the concatenation and its position in `<head>` are unchanged, the
+cascade and every computed style are identical. The script asserts that equality
+against the original for all 69 pages before and after writing, and aborts
+without writing if any page fails, if a chunk has unbalanced braces, or if the
+cut would split a comment.
+
+**If you add a new page**, check whether it shares the existing sheet. If it
+does, re-run `extract_css.py`; if it has its own CSS, leave it inline.
+
+`index.html`, `services.html`, `why-foshan.html` and `landed-cost-calculator.html`
+keep their CSS inline, because they reorder their stylesheets and share too
+little to be worth extracting.
+
+**The guard reads linked stylesheets.** `check_rendering.py` follows local
+`<link rel="stylesheet">` tags, so `.reveal` hiding in `styles-guides.css` is
+still checked on every page that loads it. Without that, the guard would have
+gone quiet on 56 pages while continuing to report PASS — worth remembering if
+the CSS is ever restructured again. Dead-CSS reporting deliberately stays on
+page-local rules only, since a selector in a shared sheet is expected to match
+nothing on most of the pages that load it.
 
 ## Adding a page
 
