@@ -248,13 +248,18 @@
   .submit-btn{font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:14px 22px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);cursor:pointer;margin-top:6px;}
   .submit-btn:hover{background:var(--stamp);border-color:var(--stamp);}
   .form-foot{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:14px;}
-  .form-fallback{margin-top:18px;padding:18px 20px;border:1px solid var(--stamp);background:var(--white);}
-  .form-fallback[hidden]{display:none;}
-  .form-fallback strong{display:block;font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;font-size:15px;margin-bottom:9px;}
-  .form-fallback p{font-size:13.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:11px;}
-  .form-fallback .fb-links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0;}
-  .form-fallback .fb-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;}
-  .form-fallback .fb-link:hover{background:var(--ink);color:var(--paper);}
+  .form-sent{background:var(--white);border:1px solid var(--ink);padding:32px;position:relative;}
+  .form-sent[hidden]{display:none;}
+  .form-sent::before{content:attr(data-label);position:absolute;top:-11px;left:22px;background:var(--paper);padding:0 8px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:.08em;}
+  .sent-badge{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;margin-bottom:18px;}
+  .form-sent h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;font-size:21px;margin-bottom:12px;}
+  .form-sent p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:12px;}
+  .form-sent p.sent-next{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;}
+  .sent-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 14px;}
+  .sent-actions a{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;}
+  .sent-actions a:hover{background:var(--ink);color:var(--paper);}
+  .link-btn{background:none;border:none;padding:0;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--stamp);cursor:pointer;text-decoration:underline;}
+  .sent-again{margin-bottom:0;}
 
   /* contact channels (contact page extra) */
   .channels{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;}
@@ -483,15 +488,19 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         </div>
         <button class="submit-btn" type="submit">Submit inquiry</button>
         <div class="form-foot">This opens your email app with the enquiry pre-filled and addressed to hello@wondersourcing.com. Nothing is sent until you press send there.</div>
-        <div class="form-fallback" id="formFallback" hidden>
-          <strong>Your email app didn&rsquo;t open?</strong>
-          <p>That happens on devices with no mail app set up. Use either channel here and we&rsquo;ll pick it up straight away:</p>
-          <p class="fb-links">
-            <a class="fb-link" href="mailto:hello@wondersourcing.com">Email hello@wondersourcing.com</a>
-            <a class="fb-link" href="https://wa.me/8618941315597?text=Hi%20Wonder%20Sourcing%2C%20I%27d%20like%20a%20sourcing%20quote." target="_blank" rel="noopener">Message on WhatsApp</a>
-          </p>
-        </div>
       </form>
+
+      <div class="form-sent" id="formSent" data-label="ENQUIRY LOGGED" role="status" aria-live="polite" tabindex="-1" hidden>
+        <div class="sent-badge" aria-hidden="true">&#10003;</div>
+        <h3 id="sentTitle">Your enquiry is on its way.</h3>
+        <p id="sentLead"></p>
+        <p class="sent-next">We answer every enquiry within 48 hours, Monday to Saturday, GMT+8.</p>
+        <div class="sent-actions">
+          <a id="sentOpenMail" href="mailto:hello@wondersourcing.com">Open my email app again</a>
+          <a href="https://wa.me/8618941315597?text=Hi%20Wonder%20Sourcing%2C%20I%27d%20like%20a%20sourcing%20quote." target="_blank" rel="noopener">Message on WhatsApp</a>
+        </div>
+        <p class="sent-again"><button type="button" class="link-btn" id="sentAgain">Send another enquiry</button></p>
+      </div>
     </div>
   </section>
 
@@ -604,20 +613,71 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
 
     const mailto = `mailto:hello@wondersourcing.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
 
-    const btn = form.querySelector('.submit-btn');
-    btn.textContent = 'Opening your email app…';
-    window.location.href = mailto;
-
-    // Show the direct-contact fallback alongside the mailto attempt. On devices
-    // with no mail app configured nothing opens, and previously the button just
-    // reverted with no message - the enquiry vanished with no trace. This makes
-    // the failure visible and gives the visitor another route.
-    const fallback = document.getElementById('formFallback');
-    if (fallback) fallback.hidden = false;
-
-    setTimeout(()=>{ btn.textContent = 'Submit inquiry'; }, 4000);
+    showConfirmation(form, company, mailto);
+    loadInFrame(mailto);   // opens the mail client without navigating the tab
     return false;
   }
+
+  // Load the mailto in a hidden frame rather than assigning window.location.
+  // Assigning location navigates away from the page, and on a device with no
+  // mail handler registered the browser lands on a blank page - the visitor
+  // loses the site and the enquiry with no explanation on either side.
+  function loadInFrame(url){
+    var id = 'wsMailFrame';
+    var f = document.getElementById(id);
+    if (!f){
+      f = document.createElement('iframe');
+      f.id = id;
+      f.setAttribute('aria-hidden', 'true');
+      f.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+      document.body.appendChild(f);
+    }
+    try { f.src = url; } catch (e) {}
+  }
+
+  function showConfirmation(form, company, mailto){
+    var sent  = document.getElementById('formSent');
+    var title = document.getElementById('sentTitle');
+    var lead  = document.getElementById('sentLead');
+    var again = document.getElementById('sentOpenMail');
+
+    var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+    var mobile = /Android|iPhone|iPad|iPod|Mac OS X/i.test(ua);
+    var who = company ? 'the enquiry for ' + company : 'your enquiry';
+
+    if (mobile){
+      if (title) title.textContent = 'Your enquiry is ready to send.';
+      if (lead) lead.textContent = 'Your email app should have opened with ' + who +
+        ' already filled in. Nothing is sent until you press send there.';
+    } else if (lead){
+      lead.textContent = 'We have put ' + who + ' into an email addressed to ' +
+        'hello@wondersourcing.com. If your email app did not open, use one of the ' +
+        'options below and we will pick it up straight away.';
+    }
+
+    if (again) again.href = mailto;   // a real mailto, so it always works
+
+    var btn = form.querySelector('.submit-btn');
+    if (btn) btn.textContent = 'Submit inquiry';
+
+    form.hidden = true;
+    if (sent){ sent.hidden = false; sent.focus(); }
+    try { history.replaceState(null, '', '#enquiry-sent'); } catch (e) {}
+  }
+
+  (function(){
+    var againBtn = document.getElementById('sentAgain');
+    if (!againBtn) return;
+    againBtn.addEventListener('click', function(){
+      var sent = document.getElementById('formSent');
+      var form = document.querySelector('form.manifest-form');
+      if (sent) sent.hidden = true;
+      if (form){
+        form.hidden = false;
+        try { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      }
+    });
+  })();
 </script>
 
 
