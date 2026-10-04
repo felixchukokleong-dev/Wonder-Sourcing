@@ -61,9 +61,53 @@ cut would split a comment.
 **If you add a new page**, check whether it shares the existing sheet. If it
 does, re-run `extract_css.py`; if it has its own CSS, leave it inline.
 
+### Sharing one page's sheet with another (tier 3)
+
 `index.html`, `services.html`, `why-foshan.html` and `landed-cost-calculator.html`
-keep their CSS inline, because they reorder their stylesheets and share too
-little to be worth extracting.
+reorder their stylesheets relative to the shared sheet, so they cannot reuse it.
+Two of them can still share with each other:
+
+```bash
+python3 tools/extract_css.py --tier3
+```
+
+This looks for a pair where one page's sheet is a safe superset of another's, and
+gives them a single file. Today that found `index.html` (137 rules) inside
+`landed-cost-calculator.html` (163 rules), so both now load `styles-home.css`.
+
+"It is a superset" is not enough to be safe. `can_absorb()` requires three things:
+
+1. every rule of the smaller sheet exists in the larger one
+2. the **last-occurrence order** of those shared rules is unchanged — that is
+   what decides which declaration wins
+3. every rule the larger sheet adds cannot match the smaller page's markup
+
+Condition 2 is the one that is easy to get wrong. An earlier version checked
+only that the smaller sheet's rules appeared somewhere in the larger one as an
+ordered subsequence. That is *not* sufficient: a rule repeated at an unhelpful
+position reorders it against an overlapping rule without anything ever going
+missing. Compare rules by last occurrence, not by first match.
+
+Tier 3 also removes **every** `<style>` block, not just the first.
+`landed-cost-calculator.html` carried two, and replacing only the first left its
+second block inline and applied twice — harmless in that case because the
+declarations were identical, but wrong.
+
+`services.html` and `why-foshan.html` keep their CSS inline. Nothing safely
+absorbs them, and since their CSS is unique to them, a separate file would be an
+extra request for no caching benefit.
+
+### Result
+
+```
+                    before      after
+styles.css            -        14.9 KB  ->  69 pages
+styles-guides.css     -         7.0 KB  ->  56 pages
+styles-home.css       -        20.4 KB  ->   2 pages
+inline CSS         1,547 KB      89 KB         55% -> 7%
+total HTML         2,793 KB   1,342 KB
+average page        37.8 KB    18.4 KB
+```
 
 **The guard reads linked stylesheets.** `check_rendering.py` follows local
 `<link rel="stylesheet">` tags, so `.reveal` hiding in `styles-guides.css` is
