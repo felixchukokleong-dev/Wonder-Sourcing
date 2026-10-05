@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="How Wonder Sourcing handles personal data: what we collect through our website and enquiry forms, why, who we share it with, and the rights you have across Southeast Asia.">
 <meta name="twitter:image" content="https://www.wondersourcing.com/og-image.jpg">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","@id":"https://www.wondersourcing.com/#organization","name":"Wonder Sourcing","legalName":"Wonder Sourcing Limited","url":"https://www.wondersourcing.com/","logo":"https://www.wondersourcing.com/favicon-192.png","image":"https://www.wondersourcing.com/og-image.jpg","email":"hello@wondersourcing.com","description":"Furniture sourcing, factory auditing, quality inspection and freight consolidation from Foshan, Guangdong, China for buyers across Southeast Asia.","foundingDate":"2024-10-22","identifier":"BRN 77216103","address":{"@type":"PostalAddress","addressLocality":"Foshan","addressRegion":"Guangdong","addressCountry":"CN"},"areaServed":[{"@type":"Country","name":"Vietnam"},{"@type":"Country","name":"Thailand"},{"@type":"Country","name":"Indonesia"},{"@type":"Country","name":"Philippines"},{"@type":"Country","name":"Malaysia"},{"@type":"Country","name":"Singapore"}],"knowsLanguage":["en","vi","th","id"],"contactPoint":{"@type":"ContactPoint","contactType":"sales","email":"hello@wondersourcing.com","availableLanguage":["en","vi","th","id"],"telephone":"+8618941315597"},"telephone":"+8618941315597"}
+{"@context":"https://schema.org","@type":"Organization","@id":"https://www.wondersourcing.com/#organization","name":"Wonder Sourcing","sameAs":["https://www.threads.com/@felixchu"],"legalName":"Wonder Sourcing Limited","url":"https://www.wondersourcing.com/","logo":"https://www.wondersourcing.com/favicon-192.png","image":"https://www.wondersourcing.com/og-image.jpg","email":"hello@wondersourcing.com","description":"Furniture sourcing, factory auditing, quality inspection and freight consolidation from Foshan, Guangdong, China for buyers across Southeast Asia.","foundingDate":"2024-10-22","identifier":"BRN 77216103","address":{"@type":"PostalAddress","addressLocality":"Foshan","addressRegion":"Guangdong","addressCountry":"CN"},"areaServed":[{"@type":"Country","name":"Vietnam"},{"@type":"Country","name":"Thailand"},{"@type":"Country","name":"Indonesia"},{"@type":"Country","name":"Philippines"},{"@type":"Country","name":"Malaysia"},{"@type":"Country","name":"Singapore"}],"knowsLanguage":["en","vi","th","id"],"contactPoint":{"@type":"ContactPoint","contactType":"sales","email":"hello@wondersourcing.com","availableLanguage":["en","vi","th","id"],"telephone":"+8618941315597"},"telephone":"+8618941315597"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","@id":"https://www.wondersourcing.com/privacy-policy.html#webpage","url":"https://www.wondersourcing.com/privacy-policy.html","name":"Privacy Policy — Wonder Sourcing","description":"How Wonder Sourcing handles personal data: what we collect through our website and enquiry forms, why, who we share it with, and the rights you have across Southeast Asia.","isPartOf":{"@id":"https://www.wondersourcing.com/#website"},"inLanguage":"en"}
@@ -38,6 +38,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
+  .form-sent{background:var(--white);border:1px solid var(--ink);padding:32px;position:relative;}
+  .form-sent[hidden]{display:none;}
+  .form-sent::before{content:attr(data-label);position:absolute;top:-11px;left:22px;background:var(--paper);padding:0 8px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:.08em;}
+  .sent-badge{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;margin-bottom:18px;}
+  .form-sent h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;font-size:21px;margin-bottom:12px;}
+  .form-sent p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:12px;}
+  .form-sent p.sent-next{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;}
+  .sent-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 14px;}
+  .sent-actions a{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;}
+  .sent-actions a:hover{background:var(--ink);color:var(--paper);}
+  .link-btn{background:none;border:none;padding:0;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--stamp);cursor:pointer;text-decoration:underline;}
+  .sent-again{margin-bottom:0;}
 
   /* contact channels (contact page extra) */
   .channels{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;}
@@ -380,6 +392,7 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
     <div class="foot-bottom">
       <span>© 2026 Wonder Sourcing</span>
       <span><a href="privacy-policy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></span>
+      <span><a href="privacy-policy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></span>
       <span>DOCUMENT REF: WS-CONTACT-2026</span>
     </div>
   </div>
@@ -399,6 +412,8 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
 
     const company  = form.querySelector('#company').value.trim();
     const country  = form.querySelector('#country').value;
+    const email    = form.querySelector('#email').value.trim();
+    const phone    = form.querySelector('#phone').value.trim();
     const category = form.querySelector('#category').value.trim();
     const volume   = form.querySelector('#volume').value.trim();
     const message  = form.querySelector('#message').value.trim();
@@ -407,6 +422,8 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
     const bodyLines = [
       `Company: ${company}`,
       `Country: ${country}`,
+      `Reply to: ${email}`,
+      `Phone / WhatsApp: ${phone}`,
       `Product category: ${category}`,
       `Est. monthly volume: ${volume}`,
       '',
@@ -416,13 +433,71 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
 
     const mailto = `mailto:hello@wondersourcing.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
 
-    const btn = form.querySelector('.submit-btn');
-    btn.textContent = 'Opening your email app…';
-    window.location.href = mailto;
-
-    setTimeout(()=>{ btn.textContent = 'Submit inquiry'; }, 4000);
+    showConfirmation(form, company, mailto);
+    loadInFrame(mailto);   // opens the mail client without navigating the tab
     return false;
   }
+
+  // Load the mailto in a hidden frame rather than assigning window.location.
+  // Assigning location navigates away from the page, and on a device with no
+  // mail handler registered the browser lands on a blank page - the visitor
+  // loses the site and the enquiry with no explanation on either side.
+  function loadInFrame(url){
+    var id = 'wsMailFrame';
+    var f = document.getElementById(id);
+    if (!f){
+      f = document.createElement('iframe');
+      f.id = id;
+      f.setAttribute('aria-hidden', 'true');
+      f.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+      document.body.appendChild(f);
+    }
+    try { f.src = url; } catch (e) {}
+  }
+
+  function showConfirmation(form, company, mailto){
+    var sent  = document.getElementById('formSent');
+    var title = document.getElementById('sentTitle');
+    var lead  = document.getElementById('sentLead');
+    var again = document.getElementById('sentOpenMail');
+
+    var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+    var mobile = /Android|iPhone|iPad|iPod|Mac OS X/i.test(ua);
+    var who = company ? 'the enquiry for ' + company : 'your enquiry';
+
+    if (mobile){
+      if (title) title.textContent = 'Your enquiry is ready to send.';
+      if (lead) lead.textContent = 'Your email app should have opened with ' + who +
+        ' already filled in. Nothing is sent until you press send there.';
+    } else if (lead){
+      lead.textContent = 'We have put ' + who + ' into an email addressed to ' +
+        'hello@wondersourcing.com. If your email app did not open, use one of the ' +
+        'options below and we will pick it up straight away.';
+    }
+
+    if (again) again.href = mailto;   // a real mailto, so it always works
+
+    var btn = form.querySelector('.submit-btn');
+    if (btn) btn.textContent = 'Submit inquiry';
+
+    form.hidden = true;
+    if (sent){ sent.hidden = false; sent.focus(); }
+    try { history.replaceState(null, '', '#enquiry-sent'); } catch (e) {}
+  }
+
+  (function(){
+    var againBtn = document.getElementById('sentAgain');
+    if (!againBtn) return;
+    againBtn.addEventListener('click', function(){
+      var sent = document.getElementById('formSent');
+      var form = document.querySelector('form.manifest-form');
+      if (sent) sent.hidden = true;
+      if (form){
+        form.hidden = false;
+        try { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      }
+    });
+  })();
 </script>
 
 

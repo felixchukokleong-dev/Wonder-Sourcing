@@ -1,5 +1,31 @@
 # Analytics & Search Console setup
 
+> **Threads social proof** (`index.html`, between `<!-- ws:threads:start -->` and
+> `<!-- ws:threads:end -->`): Meta offers **no profile or feed embed**. The
+> official oEmbed endpoint renders *one post at a time* and needs an app access
+> token, so a live "latest posts" feed is not possible without one. What ships
+> today is therefore static by design:
+>
+> - the follow card (handle, follower count, bio) — hand-maintained
+> - three post slots, each a placeholder `.t-empty` div
+>
+> **To fill a slot:** open the post on Threads → `...` → **Get embed code** →
+> paste it over the `.t-empty` div. `https://www.threads.com/embed.js` is
+> already loaded async at the foot of `index.html` and upgrades each pasted
+> blockquote in place. No code changes needed.
+>
+> **Two things to keep honest.** The follower count in `.threads-count b` is
+> hardcoded — re-check it against the profile periodically or it will drift and
+> quietly become a false claim. And do not scrape the profile to populate the
+> rail: Threads renders client-side so permalinks are not even in the HTML, and
+> scraping it is contrary to Meta's terms. Pasting the official embed code is
+> the supported route.
+>
+> If you later obtain a Meta app token, the oEmbed endpoint
+> (`graph.threads.net/v1.0/oembed?url=<permalink>`) can populate the slots
+> server-side at deploy time — but the access token must stay on the server and
+> never be committed to this repo.
+
 The site has **no analytics and no Search Console verification** — nothing is being
 measured. This document wires both up in one command.
 
