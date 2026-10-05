@@ -4,7 +4,8 @@
 
 Real photography is now on the site. `images/` holds the five branded stat
 cards plus 18 photographs from supplier showrooms and warehouses in Foshan, in
-two widths each (540w and 1080w).
+two widths each (540w and 1080w). **Every image is 4:5** — 1080x1350 for the
+large set, 540x675 for the small one.
 
 | Where | Photos | What they are |
 | --- | --- | --- |
@@ -15,7 +16,26 @@ Both galleries use the same horizontal scroll-snap rail as the stat cards, so
 no new CSS was needed. Markup lives between `<!-- ws:gallery:start/end -->`
 markers, which makes the blocks safe to regenerate.
 
-Total for all 36 photo files: **2,155 KB**, down from 2,876 KB of source JPEG.
+## One format, everywhere
+
+**Every image is 4:5 — 1080x1350 at full width, 540x675 at half.** No
+exceptions, including the five branded stat cards.
+
+This is the single rule that keeps the galleries tidy. The photographs arrived
+at seven different aspect ratios between 0.57 and 0.85, and because the rail
+sizes cards from their intrinsic ratio, a mixed set renders with ragged,
+staggered bottoms. Pinning the format means every card is the same height and
+the rail reads as one set. 4:5 was chosen because the stat cards already used
+it and the `why-foshan.html` gallery sits directly beneath them.
+
+`tools/optimize_images.py` crops to this format on the way in, so a future batch
+cannot reintroduce mixed ratios. The markup also carries a belt-and-braces
+`aspect-ratio:4/5;object-fit:cover` so the rendered box stays correct even if a
+non-conforming file ever slips past the tool. Keep the `width`/`height`
+attributes equal to the real pixel size of the 1080w file — they are what
+reserve layout space and stop the page jumping while images load.
+
+Total for all 36 photo files: **2,257 KB**, down from 2,876 KB of source JPEG.
 A phone only ever downloads the 540w set — about 350 KB on `why-foshan.html`
 and 390 KB on `services.html`.
 

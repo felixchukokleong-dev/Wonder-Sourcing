@@ -8,6 +8,7 @@ problems with photos:
   - EXIF stripping (removes GPS coordinates and camera serials - a real
     privacy leak on photos shot inside suppliers' factories)
   - resizing to the widths the markup actually uses, so pages stay light
+  - centre-cropping to a single 4:5 ratio, so gallery rails line up
 
 Usage
     python3 tools/optimize_images.py ~/Pictures/factory-shots --name factory-audit
@@ -28,6 +29,29 @@ WIDTHS = [540, 1080]
 # it is 2155 KB and visually indistinguishable at these sizes.
 QUALITY = 72
 EXTS = ('*.jpg', '*.jpeg', '*.png', '*.webp', '*.tif', '*.tiff', '*.heic')
+
+# Every image on this site is 4:5. Source photos arrive at all sorts of
+# ratios (the last batch spanned 0.57 to 0.85) and because the galleries are
+# horizontal scroll rails with fixed-width cards, mixed ratios leave the cards
+# with ragged bottoms. 4:5 is the existing stat-card format, so normalising to
+# it makes the photo rail and the stat rail above it read as one set.
+ASPECT = (4, 5)
+
+
+def crop_to_aspect(im, anchor=0.5):
+    """Centre-crop to ASPECT. anchor is the fraction of the excess height
+    kept above the window: 0.5 centred, lower biases up, higher biases down."""
+    w, h = im.size
+    target = ASPECT[0] / ASPECT[1]
+    if w / h > target:                       # too wide -> trim the sides
+        nw = round(h * target)
+        x = (w - nw) // 2
+        im = im.crop((x, 0, x + nw, h))
+    elif w / h < target:                     # too tall -> trim top/bottom
+        nh = round(w / target)
+        top = max(0, min(h - nh, round((h - nh) * anchor)))
+        im = im.crop((0, top, w, top + nh))
+    return im
 
 def collect(src):
     if os.path.isfile(src):
@@ -52,6 +76,13 @@ def main():
     ap.add_argument('--widths', default=','.join(map(str, WIDTHS)))
     ap.add_argument('--quality', type=int, default=QUALITY)
     ap.add_argument('--name', help='base filename for a single source image')
+    ap.add_argument('--no-crop', action='store_true',
+                    help='keep the source ratio instead of normalising to %d:%d'
+                         % ASPECT)
+    ap.add_argument('--anchor', type=float, default=0.5,
+                    help='vertical crop bias for tall sources: 0.5 centred, '
+                         '0.35 keeps the top (portrait shots), 0.65 keeps the '
+                         'bottom (warehouse stacks). Default 0.5')
     a = ap.parse_args()
 
     widths = [int(w) for w in a.widths.split(',') if w.strip()]
@@ -76,6 +107,8 @@ def main():
             print('  SKIP %-36s %s' % (os.path.basename(p), e))
             continue
         base = slug(a.name or os.path.splitext(os.path.basename(p))[0])
+        if not a.no_crop:
+            im = crop_to_aspect(im, a.anchor)      # normalise to 4:5
         before = os.path.getsize(p); before_total += before
         for w in sorted(widths):
             if w > im.size[0]:
@@ -96,14 +129,17 @@ def main():
     if emitted:
         big = max(emitted, key=lambda t: t[1])
         base = os.path.relpath(big[0]).rsplit('-', 1)[0]
+        if base.startswith('..'):          # --out pointed outside the project
+            base = os.path.abspath(big[0]).rsplit('-', 1)[0]
         print('''<img src="%s-%d.webp"
      srcset="%s"
      sizes="(max-width:760px) 92vw, 560px"
      width="%d" height="%d" loading="lazy" decoding="async"
+     style="width:100%%;height:auto;aspect-ratio:%d/%d;object-fit:cover;display:block;"
      alt="Describe the photo for someone who cannot see it">'''
               % (base, min(widths),
                  ', '.join('%s-%d.webp %dw' % (base, x, x) for x in sorted(widths)),
-                 big[1], big[2]))
+                 big[1], big[2], ASPECT[0], ASPECT[1]))
     print('\nEvery image needs a real alt text. Decorative only? Use alt="".')
 
 if __name__ == '__main__':
