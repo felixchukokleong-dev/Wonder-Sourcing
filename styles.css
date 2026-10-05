@@ -234,12 +234,13 @@
   .threads-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;padding:4px 0 16px;}
   .threads-rail>*{flex:0 0 auto;width:min(78vw,330px);scroll-snap-align:start;}
+  /* The pasted embed carries its own inline width/max-width (650px). Neutralise
+     it so the card obeys the rail instead of blowing the layout out. */
+  .threads-rail .t-post blockquote{max-width:none!important;width:100%!important;margin:0;}
   /* Threads' own embed renders into these; blockquote fallback is styled by us
      until threads.com/embed.js upgrades it */
   .threads-rail blockquote{background:var(--white);border:1px solid var(--line);padding:18px;
     font-size:14px;line-height:1.5;margin:0;}
-  .threads-rail .t-empty{background:var(--paper-2);border:1px dashed var(--line);padding:18px;
-    font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);}
   .threads-rail img{max-width:100%;height:auto;}
 
   @media (max-width:860px){

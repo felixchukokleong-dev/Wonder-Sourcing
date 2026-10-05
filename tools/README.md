@@ -7,12 +7,20 @@
 > today is therefore static by design:
 >
 > - the follow card (handle, follower count, bio) — hand-maintained
-> - three post slots, each a placeholder `.t-empty` div
+> - one real post embed, live as of commit `d17d2bd`+ (`/post/Ddysa9Bmphs`)
 >
-> **To fill a slot:** open the post on Threads → `...` → **Get embed code** →
-> paste it over the `.t-empty` div. `https://www.threads.com/embed.js` is
-> already loaded async at the foot of `index.html` and upgrades each pasted
+> **To add another post:** open it on Threads → `...` → **Get embed code** →
+> paste the blockquote inside its own `<div class="t-post">` at the bottom of
+> the rail. The renderer script at the foot of `index.html` upgrades each
 > blockquote in place. No code changes needed.
+>
+> **Do not paste the `<script src=.../embed.js>` tag** that Threads appends to
+> its snippet — it is already loaded once at the foot of the page, and a second
+> copy is wasted bytes.
+>
+> Each blockquote carries inline `max-width:650px`, so it is wrapped in
+> `.t-post` and overridden in CSS. Without the wrapper the embed would ignore
+> the rail's card width and blow the layout out to 650px.
 >
 > **Two things to keep honest.** The follower count in `.threads-count b` is
 > hardcoded — re-check it against the profile periodically or it will drift and
