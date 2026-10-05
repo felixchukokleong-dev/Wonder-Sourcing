@@ -222,12 +222,19 @@
     text-transform:none;letter-spacing:0;}
   .threads-card h3{font-size:19px;margin:16px 0 2px;}
   .threads-handle{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);}
-  /* Follower count is the whole point of the card - give it presence */
-  .threads-count{display:flex;align-items:baseline;gap:7px;margin:18px 0;padding:14px 0;
+  /* Follower count is the whole point of the card - give it presence.
+     gap:9px rather than 7px: at a 32px/11px pairing the tight gap read as
+     "8,605FOLLOWERS". The label is lifted 2px off the shared baseline so it
+     sits in the optical middle of the digits instead of hanging off the
+     bottom-right corner. */
+  .threads-count{display:flex;align-items:baseline;gap:9px;margin:18px 0;padding:14px 0;
     border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);}
   .threads-count b{font-family:var(--display);font-size:32px;font-weight:600;line-height:1;}
   .threads-count span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--ink-soft);}
+    text-transform:uppercase;color:var(--ink-soft);position:relative;top:-2px;
+    /* letter-spacing adds space AFTER the last glyph too, which leaves a
+       phantom gap once the label is centred. Pull it back. */
+    margin-right:-.06em;}
   .threads-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
 
   /* Post rail - same scroll-snap pattern as the galleries */
