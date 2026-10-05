@@ -84,9 +84,27 @@ def main():
         if current == xml:
             print('sitemap.xml is current (%d URLs)' % n_urls)
             return 0
-        live = len(re.findall(r'<loc>', current))
-        print('sitemap.xml is OUT OF DATE: file has %d URLs, pages need %d'
-              % (live, n_urls))
+        # Compare URL sets before reporting a count, so a lastmod-only drift
+        # does not get reported as a bogus "missing pages" problem.
+        have = set(re.findall(r'<loc>(.*?)</loc>', current))
+        want = set(re.findall(r'<loc>(.*?)</loc>', xml))
+        if have != want:
+            print('sitemap.xml is OUT OF DATE: %d URL(s) missing, %d unexpected'
+                  % (len(want - have), len(have - want)))
+            for u in sorted(want - have):
+                print('  missing:  %s' % u)
+            for u in sorted(have - want):
+                print('  unknown: %s' % u)
+        else:
+            # Same URLs, but lastmod/changefreq/priority are out of date - the
+            # usual cause is editing a page without rebuilding the sitemap.
+            want_mod = dict(re.findall(
+                r'<loc>(.*?)</loc>\s*<lastmod>(.*?)</lastmod>', xml, re.S))
+            stale = [l for (l, m) in re.findall(
+                r'<loc>(.*?)</loc>\s*<lastmod>(.*?)</lastmod>', current, re.S)
+                if want_mod.get(l) != m]
+            print('sitemap.xml is OUT OF DATE: all %d URLs present, but %d have a '
+                  'stale lastmod/changefreq/priority' % (len(want), len(stale)))
         print('run: python3 tools/build_sitemap.py')
         return 1
 
