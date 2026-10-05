@@ -11,9 +11,14 @@ supported-countries page states it plainly:
 So the standard advice — "set up a Google Business Profile" — cannot work for the
 Foshan office, and no amount of effort changes that. Two things follow:
 
-1. **Hong Kong IS supported by Google Business Profile**, and Wonder Sourcing
-   Limited is a Hong Kong registered entity (BRN 77216103). A GBP tied to a
-   verifiable Hong Kong address is a legitimate route to a Google presence.
+1. **Hong Kong IS supported by Google Business Profile**, so a GBP is a possible
+   route to a Google presence — but only if there is a genuinely verifiable Hong
+   Kong entity and address behind it. **This was previously stated here on the
+   basis of a Hong Kong business registration number (BRN 77216103). That number
+   has been removed from the site and from this guide at the owner's request: it
+   does not belong to this business. Do not use it, and do not build a listing on
+   it. Confirm what entity actually exists, and which address can be verified,
+   before choosing this route.
 2. **Bing Places does support businesses in China.** Microsoft's own guidance
    confirms it, including manual entry of a Chinese province when the dropdown
    does not populate.
@@ -88,6 +93,11 @@ search, Windows and Copilot results.
 
 ### 2. Google Business Profile via the Hong Kong entity
 
+**Blocked pending the entity question.** This option assumed a Hong Kong
+registration. There is not one to rely on, so it cannot be actioned as written.
+Revisit only once you have confirmed a verifiable Hong Kong entity; otherwise
+skip to the Bing Places route above, which needs no such entity.
+
 - Create at business.google.com with **Hong Kong** as the country
 - Use the registered name `Wonder Sourcing Limited`
 - Category candidates to check in the interface (Google's list changes): sourcing
@@ -127,8 +137,9 @@ earns links that text pages do not.
 
 ### 7. HKTDC sourcing platform
 
-Given the Hong Kong registration, listing as a service provider on HKTDC's trade
-platform is a genuine fit rather than a generic directory entry.
+Worth approaching as a genuine fit — a trade platform, not a generic directory —
+but note HKTDC membership is normally open to Hong Kong companies, so eligibility
+depends on the same entity question as option 2 above.
 
 ---
 

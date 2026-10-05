@@ -36,8 +36,7 @@ PAGES.append(dict(
         <p class="updated">Last updated: {updated}</p>
 
         <h2>Who is responsible for your data</h2>
-        <p>The data controller is <strong>Wonder Sourcing Limited</strong>
-        (Business Registration No. 77216103), operating from Chancheng District,
+        <p>The data controller is <strong>Wonder Sourcing Limited</strong>, operating from Chancheng District,
         Foshan, Guangdong, China. For any question about this policy or about
         your data, write to <a href="mailto:{email}">{email}</a>.</p>
 
@@ -155,7 +154,7 @@ PAGES.append(dict(
         communicated directly.</p>
 
         <h2>Contact</h2>
-        <p>Wonder Sourcing Limited &middot; Business Registration No. 77216103<br>
+        <p class="legal-contact">Wonder Sourcing Limited<br>
         Chancheng District, Foshan, Guangdong, China<br>
         <a href="mailto:{email}">{email}</a> &middot; {phone}</p>
       </div>
@@ -179,8 +178,7 @@ PAGES.append(dict(
         <p class="updated">Last updated: {updated}</p>
 
         <h2>About these terms</h2>
-        <p>This website is operated by <strong>Wonder Sourcing Limited</strong>
-        (Business Registration No. 77216103), based in Chancheng District,
+        <p>This website is operated by <strong>Wonder Sourcing Limited</strong>, based in Chancheng District,
         Foshan, Guangdong, China. By using the site you accept these terms. If
         you do not accept them, please do not use the site.</p>
         <p>These terms cover <strong>the website</strong>. Work we carry out for
@@ -266,7 +264,7 @@ PAGES.append(dict(
         updated terms.</p>
 
         <h2>Contact</h2>
-        <p>Wonder Sourcing Limited &middot; Business Registration No. 77216103<br>
+        <p class="legal-contact">Wonder Sourcing Limited<br>
         Chancheng District, Foshan, Guangdong, China<br>
         <a href="mailto:{email}">{email}</a> &middot; {phone}</p>
       </div>
