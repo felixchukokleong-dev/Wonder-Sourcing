@@ -30,6 +30,10 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Quality Control","item":"https://www.wondersourcing.com/quality-control.html"}]}
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is furniture quality control in China and why does it matter?", "acceptedAnswer": {"@type": "Answer", "text": "Quality control is the independent check on an order before it ships. A factory grading its own work is the single most common reason containers arrive with damage or mismatched finishes. We run three checkpoints - pre-production, mid-line and pre-shipment - so each stage catches a different category of fault before it is too late to fix."}}, {"@type": "Question", "name": "What are the three stages of furniture inspection?", "acceptedAnswer": {"@type": "Answer", "text": "Pre-production, before cutting begins, where we check that the wood, fabric, foam density, hardware and finish materials on hand match your specification. Mid-line, at around 20-30% of the order complete, checking joint stability, seam quality and colour consistency. Pre-shipment, once packed, with a full carton count against the packing list, a drop test and a loading check."}}, {"@type": "Question", "name": "How long does a furniture inspection take to report?", "acceptedAnswer": {"@type": "Answer", "text": "Reports go out the same day the inspection is completed, so a hold decision does not cost you transit time. You receive timestamped photo and video evidence of the items checked, not a generic sample photo."}}, {"@type": "Question", "name": "What happens if my furniture fails inspection?", "acceptedAnswer": {"@type": "Answer", "text": "The shipment is held - nothing that fails pre-shipment inspection is authorised to load, and you are notified the same day with photo evidence. Where the fault is fixable, such as a finish issue or packing error, the factory reworks at their own expense. If a factory cannot or will not correct it, we bring it back to you with options."}}, {"@type": "Question", "name": "Do you take commission from factories?", "acceptedAnswer": {"@type": "Answer", "text": "No - 0% commission from factories. That is what makes the inspection call independent; we are not financially attached to whether a shipment passes."}}, {"@type": "Question", "name": "Can you inspect an order I am sourcing directly?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can bring us in for inspection only, with no need to route the whole order through us. That applies to any order, not just ones we sourced."}}, {"@type": "Question", "name": "How is your quality control sampling decided?", "acceptedAnswer": {"@type": "Answer", "text": "Carton sampling follows standard AQL levels appropriate to your order size, so the level of checking scales with the volume you are buying rather than applying one fixed sample to every shipment."}}]}
+</script>
+
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="alternate icon" href="favicon.ico">
@@ -152,6 +156,12 @@
     .whatsapp-float svg{width:26px;height:26px;}
     .whatsapp-float .wa-label{display:none;}
   }
+
+  /* faq */
+  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
@@ -283,6 +293,45 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         <div>
           <h3>Unresolved issues are escalated to you</h3>
           <p>If a factory can't or won't correct a fault, we bring it back to you with options — replacement production, a partial shipment, or a different supplier — before anything moves further.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Questions</div>
+        <h2>Common questions about furniture inspection.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <h3>What is furniture quality control in China and why does it matter?</h3>
+          <p>Quality control is the independent check on an order before it ships. A factory grading its own work is the single most common reason containers arrive with damage or mismatched finishes. We run three checkpoints - pre-production, mid-line and pre-shipment - so each stage catches a different category of fault before it is too late to fix.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What are the three stages of furniture inspection?</h3>
+          <p>Pre-production, before cutting begins, where we check that the wood, fabric, foam density, hardware and finish materials on hand match your specification. Mid-line, at around 20-30% of the order complete, checking joint stability, seam quality and colour consistency. Pre-shipment, once packed, with a full carton count against the packing list, a drop test and a loading check.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>How long does a furniture inspection take to report?</h3>
+          <p>Reports go out the same day the inspection is completed, so a hold decision does not cost you transit time. You receive timestamped photo and video evidence of the items checked, not a generic sample photo.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What happens if my furniture fails inspection?</h3>
+          <p>The shipment is held - nothing that fails pre-shipment inspection is authorised to load, and you are notified the same day with photo evidence. Where the fault is fixable, such as a finish issue or packing error, the factory reworks at their own expense. If a factory cannot or will not correct it, we bring it back to you with options.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Do you take commission from factories?</h3>
+          <p>No - 0% commission from factories. That is what makes the inspection call independent; we are not financially attached to whether a shipment passes.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Can you inspect an order I am sourcing directly?</h3>
+          <p>Yes. You can bring us in for inspection only, with no need to route the whole order through us. That applies to any order, not just ones we sourced.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>How is your quality control sampling decided?</h3>
+          <p>Carton sampling follows standard AQL levels appropriate to your order size, so the level of checking scales with the volume you are buying rather than applying one fixed sample to every shipment.</p>
         </div>
       </div>
     </div>

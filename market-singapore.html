@@ -30,6 +30,10 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.wondersourcing.com/markets.html"},{"@type":"ListItem","position":3,"name":"Singapore","item":"https://www.wondersourcing.com/market-singapore.html"}]}
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does shipping from Foshan to Singapore take?", "acceptedAnswer": {"@type": "Answer", "text": "Ocean freight lands at PSA Singapore Terminal. Lead times here are the most consistent of the markets we serve, which suits time-sensitive orders and makes this the market best suited to ordering on a rhythm."}}, {"@type": "Question", "name": "Is there import duty on furniture going into Singapore?", "acceptedAnswer": {"@type": "Answer", "text": "Singapore is effectively a free port for furniture: most categories enter with no import duty, though GST applies. Because duty is rarely the issue, clearance here is usually the least complicated in the region."}}, {"@type": "Question", "name": "What happens if I am re-exporting onward from Singapore?", "acceptedAnswer": {"@type": "Answer", "text": "Goods that enter and leave can be treated differently, and the entry documentation has to reflect that from the start. Reconstructing paperwork afterwards is the expensive part, so it needs deciding before the container sails."}}, {"@type": "Question", "name": "Does GST apply to the full landed value?", "acceptedAnswer": {"@type": "Answer", "text": "Freight and insurance form part of the value on which GST is assessed, so a low FOB price can still produce a higher tax base than expected."}}, {"@type": "Question", "name": "What should buyers here prioritise?", "acceptedAnswer": {"@type": "Answer", "text": "Buyers judge against high retail standards, so spend on the visible finish and the details that get touched. It also suits locking a specification: when the same chair has to be reorderable two years later, a stable spec is worth more than a lower first order."}}]}
+</script>
+
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="alternate icon" href="favicon.ico">
@@ -158,6 +162,12 @@
   .market-prose p{color:var(--ink-soft);font-size:15.5px;line-height:1.72;margin-bottom:16px;}
   .market-prose p:last-child{margin-bottom:0;}
 
+
+  /* faq (market pages) */
+  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
@@ -298,6 +308,37 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         <li><strong>GST on the full value.</strong> Freight and insurance form part of the value on which GST is assessed, so a low FOB price can still produce a larger GST bill than expected.</li>
         <li><strong>Premium spec expectations.</strong> Buyers here judge against high retail standards. Where that matters, spend on the visible finish and the feel of the materials rather than on the frame, which is where a difference is least noticeable.</li>
       </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Questions</div>
+        <h2>Common questions shipping furniture to Singapore.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <h3>How long does shipping from Foshan to Singapore take?</h3>
+          <p>Ocean freight lands at PSA Singapore Terminal. Lead times here are the most consistent of the markets we serve, which suits time-sensitive orders and makes this the market best suited to ordering on a rhythm.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Is there import duty on furniture going into Singapore?</h3>
+          <p>Singapore is effectively a free port for furniture: most categories enter with no import duty, though GST applies. Because duty is rarely the issue, clearance here is usually the least complicated in the region.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What happens if I am re-exporting onward from Singapore?</h3>
+          <p>Goods that enter and leave can be treated differently, and the entry documentation has to reflect that from the start. Reconstructing paperwork afterwards is the expensive part, so it needs deciding before the container sails.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Does GST apply to the full landed value?</h3>
+          <p>Freight and insurance form part of the value on which GST is assessed, so a low FOB price can still produce a higher tax base than expected.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What should buyers here prioritise?</h3>
+          <p>Buyers judge against high retail standards, so spend on the visible finish and the details that get touched. It also suits locking a specification: when the same chair has to be reorderable two years later, a stable spec is worth more than a lower first order.</p>
+        </div>
+      </div>
     </div>
   </section>
 

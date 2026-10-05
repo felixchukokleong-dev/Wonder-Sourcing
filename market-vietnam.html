@@ -30,6 +30,10 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.wondersourcing.com/markets.html"},{"@type":"ListItem","position":3,"name":"Vietnam","item":"https://www.wondersourcing.com/market-vietnam.html"}]}
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does shipping from Foshan to Vietnam take?", "acceptedAnswer": {"@type": "Answer", "text": "Ocean freight from Foshan to Vietnam typically runs 3-5 days, landing at Cat Lai Port, Ho Chi Minh City. That is the shortest transit of any market we serve, which is why Vietnam suits a faster test-and-repeat cycle: ship a smaller first order, confirm the specification, then repeat."}}, {"@type": "Question", "name": "Which port do furniture containers arrive at in Vietnam?", "acceptedAnswer": {"@type": "Answer", "text": "Cat Lai Port, Ho Chi Minh City, which handles the large majority of Vietnam's containerised imports. Buyers supplying Da Nang or Phu Quoc normally move onward from there by road."}}, {"@type": "Question", "name": "Is there import duty on furniture going into Vietnam?", "acceptedAnswer": {"@type": "Answer", "text": "Duty depends on the HS code each item is classified under, with VAT applied on top. Vietnam sits inside the ASEAN-China free trade area, so goods of Chinese origin can enter under preferential rates where the certificate of origin is presented."}}, {"@type": "Question", "name": "What usually goes wrong on Vietnam shipments?", "acceptedAnswer": {"@type": "Answer", "text": "Three things catch Vietnam buyers: peak-season berth congestion around Tet, projects in Da Nang and further south working to a fixed seasonal opening date, and treating a FOB Foshan quote as a landed cost in Ho Chi Minh City."}}, {"@type": "Question", "name": "Where should I start with a Vietnam order?", "acceptedAnswer": {"@type": "Answer", "text": "Most Vietnam buyers begin with one hospitality floor, one cafe fit-out, or one showroom - enough volume to consolidate efficiently and small enough to learn the route before scaling it."}}]}
+</script>
+
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="alternate icon" href="favicon.ico">
@@ -158,6 +162,12 @@
   .market-prose p{color:var(--ink-soft);font-size:15.5px;line-height:1.72;margin-bottom:16px;}
   .market-prose p:last-child{margin-bottom:0;}
 
+
+  /* faq (market pages) */
+  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
@@ -298,6 +308,37 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         <li><strong>Central-coast opening dates.</strong> Projects in Da Nang and further south often have a fixed opening date tied to a season. Work backwards from that date and treat production and freight as separate risks, because they fail for different reasons.</li>
         <li><strong>Treating a factory quote as a landed cost.</strong> FOB from Foshan is not what the goods cost you in Ho Chi Minh City. Duty, VAT, freight, the sourcing fee and inland delivery all sit between the two &mdash; run them through the calculator before you price anything onward.</li>
       </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Questions</div>
+        <h2>Common questions shipping furniture to Vietnam.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <h3>How long does shipping from Foshan to Vietnam take?</h3>
+          <p>Ocean freight from Foshan to Vietnam typically runs 3-5 days, landing at Cat Lai Port, Ho Chi Minh City. That is the shortest transit of any market we serve, which is why Vietnam suits a faster test-and-repeat cycle: ship a smaller first order, confirm the specification, then repeat.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Which port do furniture containers arrive at in Vietnam?</h3>
+          <p>Cat Lai Port, Ho Chi Minh City, which handles the large majority of Vietnam's containerised imports. Buyers supplying Da Nang or Phu Quoc normally move onward from there by road.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Is there import duty on furniture going into Vietnam?</h3>
+          <p>Duty depends on the HS code each item is classified under, with VAT applied on top. Vietnam sits inside the ASEAN-China free trade area, so goods of Chinese origin can enter under preferential rates where the certificate of origin is presented.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What usually goes wrong on Vietnam shipments?</h3>
+          <p>Three things catch Vietnam buyers: peak-season berth congestion around Tet, projects in Da Nang and further south working to a fixed seasonal opening date, and treating a FOB Foshan quote as a landed cost in Ho Chi Minh City.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Where should I start with a Vietnam order?</h3>
+          <p>Most Vietnam buyers begin with one hospitality floor, one cafe fit-out, or one showroom - enough volume to consolidate efficiently and small enough to learn the route before scaling it.</p>
+        </div>
+      </div>
     </div>
   </section>
 
