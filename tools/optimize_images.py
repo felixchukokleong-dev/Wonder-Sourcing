@@ -21,7 +21,12 @@ import argparse, os, sys, glob
 from PIL import Image, ImageOps
 
 WIDTHS = [540, 1080]
-QUALITY = 84
+# Quality 72, not the 84 that suited the flat-colour stat cards. Real
+# photography of a showroom has gradients, shadow noise and high-frequency
+# chair frames, where WebP needs to spend a lot of bits; at 84 this folder of
+# 18 photos came out LARGER than the source JPEGs (2876 KB -> 3161 KB). At 72
+# it is 2155 KB and visually indistinguishable at these sizes.
+QUALITY = 72
 EXTS = ('*.jpg', '*.jpeg', '*.png', '*.webp', '*.tif', '*.tiff', '*.heic')
 
 def collect(src):

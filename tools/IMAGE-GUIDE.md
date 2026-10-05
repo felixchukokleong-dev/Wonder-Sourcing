@@ -2,31 +2,83 @@
 
 ## Current state
 
-The site had **zero images** until the brand stat cards were added. That is still
-the single biggest gap in the SEO audit: no photographs means no visual proof of
-the factories, inspections or containers, no Google Images traffic, and weaker
-engagement on a product category that is bought with the eyes.
+Real photography is now on the site. `images/` holds the five branded stat
+cards plus 18 photographs from supplier showrooms and warehouses in Foshan, in
+two widths each (540w and 1080w).
 
-### What exists now
-
-`images/` holds the five branded stat cards, in two widths each:
-
-| File | Size | Used on |
+| Where | Photos | What they are |
 | --- | --- | --- |
-| `stat-1-3000-factories-*.webp` | 540 / 1080 | `why-foshan.html` |
-| `stat-2-240-audited-*.webp` | 540 / 1080 | `why-foshan.html` |
-| `stat-3-inspections-*.webp` | 540 / 1080 | `why-foshan.html` |
-| `stat-4-6-countries-*.webp` | 540 / 1080 | `why-foshan.html` |
-| `stat-5-12-years-*.webp` | 540 / 1080 | `why-foshan.html` |
+| `why-foshan.html` | 8 | Showroom floors — chair rows, armchair halls, warehouse racking |
+| `services.html` | 10 | Product shots plus warehouse stock and consolidation |
 
-They appear as a swipeable "By the numbers" rail above the closing CTA on
-`why-foshan.html`. Total 222 KB for all ten files, down from 551 KB of source
-JPEG — and they are served responsively, so a phone only downloads the 540w set.
+Both galleries use the same horizontal scroll-snap rail as the stat cards, so
+no new CSS was needed. Markup lives between `<!-- ws:gallery:start/end -->`
+markers, which makes the blocks safe to regenerate.
 
-### What is still missing: real photographs
+Total for all 36 photo files: **2,155 KB**, down from 2,876 KB of source JPEG.
+A phone only ever downloads the 540w set — about 350 KB on `why-foshan.html`
+and 390 KB on `services.html`.
 
-Those cards are graphics that restate numbers already on the page. They do not
-replace photography. **You still need real photos**, and only you can take them.
+### What is still missing
+
+The photography covers **showrooms and stock**, not operations. The site still
+has no images of:
+
+- a **factory floor mid-production** — the single most important missing shot
+- **QC inspection in progress** — this is the claimed differentiator
+- a **container being loaded** — makes consolidation tangible
+- your **warehouse with palletised orders**
+- a **team or inspector portrait** — E-E-A-T
+
+Those five remain the priority. Only you can shoot them.
+
+---
+
+## Processing photos
+
+```bash
+# one photo
+python3 tools/optimize_images.py ~/Pictures/qc-inspection.jpg --name qc-inspection
+
+# a whole folder
+python3 tools/optimize_images.py ~/Pictures/foshan-trip --name factory-floor
+```
+
+The tool resizes to 540w and 1080w, converts to WebP, strips EXIF (which matters:
+photos shot in a supplier's factory often carry GPS coordinates and camera
+serials) and fixes phone-photo rotation. It then prints ready-to-paste markup.
+
+### Quality is 72, and that is deliberate
+
+The default was 84, which suited the flat-colour stat cards. It is wrong for
+photography: a showroom has gradients, shadow noise and high-frequency chair
+frames, and at 84 this folder came out **larger** than the source JPEGs
+(2,876 KB → 3,161 KB). At 72 it is 2,155 KB and visually indistinguishable at
+display size.
+
+If you add flat-colour graphics rather than photographs, pass `--quality 84`.
+
+### Rename before you build
+
+Source photos usually arrive as camera or social-media hashes
+(`488523582_17904028896155371_...jpg`), which produce unusable filenames and
+meaningless URLs. Rename each photo to describe its subject
+(`product-leather-sofa.jpg`) before running the tool. The tool derives the
+output name from the input name.
+
+### Curate before you process
+
+Of 24 photos supplied, 6 were dropped rather than published:
+
+| Dropped | Why |
+| --- | --- |
+| Photoshoot in progress, two people holding cameras | Identifiable faces, and the subject is the shoot rather than the furniture |
+| Two extreme close-ups of one metal side table | No legible subject |
+| Two alternate angles of the same warehouse corner | Same scene twice |
+| Close-up of a table's trestle legs | Same table already published in full |
+
+Publishing near-duplicates dilutes a gallery and wastes bandwidth. It also
+gives Google several competing candidates for the same image.
 
 ---
 
