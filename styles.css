@@ -211,45 +211,36 @@
   .submit-btn:hover{background:var(--stamp);border-color:var(--stamp);}
   .form-foot{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:14px;}
 
-  /* Threads social proof */
+  /* Threads follow bar - a single link out, no embedded feed. Threads has no
+     profile/feed embed, and the post embeds were dropped as redundant next to
+     the follower count. */
   .threads{padding:64px 0;border-bottom:1px solid var(--line);}
-  .threads-grid{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start;margin-top:26px;}
-
-  /* Follow card */
-  .threads-card{background:var(--paper-2);border:1px solid var(--line);padding:24px;}
-  .threads-mark{width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--paper);
-    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;
-    text-transform:none;letter-spacing:0;}
-  .threads-card h3{font-size:19px;margin:16px 0 2px;}
+  .threads-follow{display:flex;align-items:center;gap:30px;flex-wrap:wrap;
+    background:var(--paper-2);border:1px solid var(--line);padding:24px 28px;}
+  .threads-mark{width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:28px;
+    text-transform:none;letter-spacing:0;flex:0 0 auto;}
+  .threads-id{flex:0 0 auto;}
+  .threads-id h3{font-size:19px;margin:0 0 3px;}
   .threads-handle{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);}
-  /* Follower count is the whole point of the card - give it presence.
-     gap:9px rather than 7px: at a 32px/11px pairing the tight gap read as
-     "8,605FOLLOWERS". The label is lifted 2px off the shared baseline so it
-     sits in the optical middle of the digits instead of hanging off the
-     bottom-right corner. */
-  .threads-count{display:flex;align-items:baseline;gap:9px;margin:18px 0;padding:14px 0;
-    border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);}
+  /* Follower count is the whole point of the block. gap:9px rather than 7px:
+     at a 32px/11px pairing the tight gap read as "8,605FOLLOWERS". The label
+     is lifted 2px off the shared baseline so it sits in the optical middle of
+     the digits instead of hanging off the bottom-right corner. */
+  .threads-count{display:flex;align-items:baseline;gap:9px;margin:12px 0 0;}
   .threads-count b{font-family:var(--display);font-size:32px;font-weight:600;line-height:1;}
   .threads-count span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
     text-transform:uppercase;color:var(--ink-soft);position:relative;top:-2px;
     /* letter-spacing adds space AFTER the last glyph too, which leaves a
-       phantom gap once the label is centred. Pull it back. */
+       phantom gap. Pull it back. */
     margin-right:-.06em;}
-  .threads-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
+  .threads-bio{flex:1 1 260px;min-width:0;font-size:14px;color:var(--ink-soft);margin:0;}
+  .threads-follow .btn{flex:0 0 auto;}
 
-  /* Post rail - same scroll-snap pattern as the galleries */
-  .threads-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;padding:4px 0 16px;}
-  .threads-rail>*{flex:0 0 auto;width:min(78vw,330px);scroll-snap-align:start;}
-  /* The pasted embed carries its own inline width/max-width (650px). Neutralise
-     it so the card obeys the rail instead of blowing the layout out. */
-  .threads-rail .t-post blockquote{max-width:none!important;width:100%!important;margin:0;}
-  /* Threads' own embed renders into these; blockquote fallback is styled by us
-     until threads.com/embed.js upgrades it */
-  .threads-rail blockquote{background:var(--white);border:1px solid var(--line);padding:18px;
-    font-size:14px;line-height:1.5;margin:0;}
-  .threads-rail img{max-width:100%;height:auto;}
-
-  @media (max-width:860px){
-    .threads-grid{grid-template-columns:1fr;}
+  @media (max-width:760px){
+    /* Everything wraps to its own row: mark+handle, bio, then a full-width
+       button. .btn is inline-block, so centre with text-align, not flex. */
+    .threads-follow{gap:18px;padding:20px;}
+    .threads-bio{flex-basis:100%;}
+    .threads-follow .btn{flex:1 1 100%;display:block;text-align:center;}
   }
