@@ -47,11 +47,19 @@ Chancheng District, Foshan, Guangdong, China
 +86 189 4131 5597
 hello@wondersourcing.com
 https://www.wondersourcing.com/
-Mon–Sat, 09:00–18:00 (GMT+8)
+Mon–Fri 09:00–18:30, Sat 09:00–13:00 (GMT+8), Sun closed
 ```
 
+**Corrected 2026-10-05.** This block previously said "Mon–Sat, 09:00–18:00",
+which contradicted the hours table already published on `contact.html`. The
+contact page is the older, more specific source, so it wins and this block was
+corrected to match. It also feeds `openingHoursSpecification` in the
+Organization schema on all 82 pages, so the two must not be allowed to drift
+apart again — **if you change your hours, change both.**
+
 The site and its structured data already carry this — the Organization schema
-now includes `telephone` on all 59 content pages. When you list anywhere else,
+includes `telephone` on all 82 content pages, and the phone is a `tel:` link
+wherever it is shown, so it is dialable on mobile. When you list anywhere else,
 copy this block rather than retyping it.
 
 **Decide one thing before you start:** whether you will publish a street address.
