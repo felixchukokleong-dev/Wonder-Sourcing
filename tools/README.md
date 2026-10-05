@@ -7,7 +7,8 @@
 > today is therefore static by design:
 >
 > - the follow card (handle, follower count, bio) — hand-maintained
-> - one real post embed, live as of commit `d17d2bd`+ (`/post/Ddysa9Bmphs`)
+> - two real post embeds, live as of commit `HEAD`: `/post/Ddysa9Bmphs` and
+>   `/post/Ddq_rddCCYD`
 >
 > **To add another post:** open it on Threads → `...` → **Get embed code** →
 > paste the blockquote inside its own `<div class="t-post">` at the bottom of
@@ -21,6 +22,13 @@
 > Each blockquote carries inline `max-width:650px`, so it is wrapped in
 > `.t-post` and overridden in CSS. Without the wrapper the embed would ignore
 > the rail's card width and blow the layout out to 650px.
+>
+> **Check the shortcode before pasting.** Threads' *Get embed code* copies the
+> **most recent** post, not whichever post you have open, so it is easy to send
+> the same snippet twice. Two cards with the same shortcode would also mean a
+> duplicate `id="ig-tp-..."`, which is invalid HTML and can break the upgrade
+> script. `grep -o 'post/Dd[a-zA-Z0-9_]*' index.html | sort | uniq -c` should
+> show each shortcode exactly twice (the permalink and the `href`).
 >
 > **Two things to keep honest.** The follower count in `.threads-count b` is
 > hardcoded — re-check it against the profile periodically or it will drift and
