@@ -28,6 +28,42 @@ staggered bottoms. Pinning the format means every card is the same height and
 the rail reads as one set. 4:5 was chosen because the stat cards already used
 it and the `why-foshan.html` gallery sits directly beneath them.
 
+| Slug | Before | After |
+| --- | --- | --- |
+| `product-home-office` | 1080x1895 (0.570) | 1080x1350 (0.800) |
+| `product-leather-sofa` | 1080x1854 (0.583) | 1080x1350 (0.800) |
+| `product-striped-daybed` | 1080x1852 (0.583) | 1080x1350 (0.800) |
+| `product-slat-bench` | 1080x1269 (0.851) | 1080x1350 (0.800) |
+| `product-sculpted-sideboard` | 1080x1299 (0.831) | 1080x1350 (0.800) |
+| `showroom-*` (all 8) | 1080x1440 (0.750) | 1080x1350 (0.800) |
+| `stock-side-tables-carton` | 1080x1496 (0.722) | 1080x1350 (0.800) |
+| `stock-side-tables-nested` | 1080x1493 (0.723) | 1080x1350 (0.800) |
+| `warehouse-stock-chairs` | 1080x1560 (0.692) | 1080x1350 (0.800) |
+| `stat-*` (all 5) | 1080x1350 (0.800) | unchanged |
+
+Cropping is centred horizontally, but the **vertical anchor is tuned per
+image** so the subject survives the trim. A blind centre crop on the tall
+portraits pushed the daybed down and filled the frame with ceiling:
+
+- `0.50` — most showroom shots, and the wide shots cropped at the sides
+  (`product-slat-bench`, `product-sculpted-sideboard`, the two dining tables)
+- `0.55` — `product-leather-sofa`, `stock-side-tables-nested`
+  (biased up: furniture sits low in frame)
+- `0.58` — `product-home-office`
+- `0.60` — `stock-side-tables-carton`, `warehouse-stock-chairs` (biased down,
+  to hold the stacked cartons rather than the ceiling)
+- `0.72` — `product-striped-daybed`, to centre the bed under the tree
+
+Reproduce with `python3 tools/optimize_images.py <source> --anchor <0-1>`. If a
+crop ever looks wrong, re-run at a different anchor and eyeball the result.
+
+> **Note on `product-slat-bench`:** the Chinese factory sign in the top-right
+> runs off the edge of the *source* photo, not the crop — the source is only
+> 1170px wide, so the 4:5 window only slides 70px across it and no horizontal
+> anchor can rescue the text. It is left as-is: background signage bleeding off
+> the frame is normal in a real warehouse photograph. Do not try to "fix" it
+> with a crop anchor.
+
 `tools/optimize_images.py` crops to this format on the way in, so a future batch
 cannot reintroduce mixed ratios. The markup also carries a belt-and-braces
 `aspect-ratio:4/5;object-fit:cover` so the rendered box stays correct even if a
@@ -35,9 +71,9 @@ non-conforming file ever slips past the tool. Keep the `width`/`height`
 attributes equal to the real pixel size of the 1080w file — they are what
 reserve layout space and stop the page jumping while images load.
 
-Total for all 36 photo files: **2,257 KB**, down from 2,876 KB of source JPEG.
-A phone only ever downloads the 540w set — about 350 KB on `why-foshan.html`
-and 390 KB on `services.html`.
+Total for all 46 files (23 images x 2 widths): **2,257 KB**, down from 2,876 KB
+of source JPEG. A phone only ever downloads the 540w set — about 441 KB on
+`why-foshan.html` (8 photos plus the 5 stat cards) and 217 KB on `services.html`.
 
 ### What is still missing
 
