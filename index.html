@@ -99,32 +99,32 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
           <circle cx="70" cy="70" r="5" fill="#1C2321"></circle>
           <text x="82" y="74" font-family="IBM Plex Mono" font-size="11" fill="#1C2321">FOSHAN (ORIGIN)</text>
 
-          <!-- routes -->
-          <path class="route-line" d="M70,70 C150,120 140,155 110,185" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
-          <path class="route-line" d="M70,70 C180,110 180,150 170,195" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
-          <path class="route-line" d="M70,70 C240,110 240,160 232,198" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
-          <path class="route-line" d="M70,70 C260,90 290,150 285,205" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
-          <path class="route-line" d="M70,70 C300,70 350,140 345,215" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <!-- routes: one clean curve per port, fanned to avoid crossing -->
+          <path class="route-line" d="M70,70 C100,110 95,140 100,175" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C140,100 150,150 155,205" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C180,95 205,140 215,180" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C230,90 260,140 275,195" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C290,80 330,130 340,185" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <path class="route-line" d="M70,70 C200,140 240,190 250,240" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
 
-          <!-- ports -->
-          <circle class="port-dot" cx="110" cy="185" r="4" fill="#A6362C"></circle>
-          <text x="50" y="200" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">HO CHI MINH</text>
+          <!-- ports: staggered vertically so labels never collide -->
+          <circle class="port-dot" cx="100" cy="175" r="4" fill="#A6362C"></circle>
+          <text x="100" y="192" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">HO CHI MINH</text>
 
-          <circle class="port-dot" cx="170" cy="195" r="4" fill="#A6362C"></circle>
-          <text x="142" y="212" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">BANGKOK</text>
+          <circle class="port-dot" cx="155" cy="205" r="4" fill="#A6362C"></circle>
+          <text x="155" y="222" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">BANGKOK</text>
 
-          <circle class="port-dot" cx="232" cy="198" r="4" fill="#A6362C"></circle>
-          <text x="198" y="190" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">SINGAPORE</text>
+          <circle class="port-dot" cx="215" cy="180" r="4" fill="#A6362C"></circle>
+          <text x="215" y="167" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">SINGAPORE</text>
 
-          <circle class="port-dot" cx="285" cy="205" r="4" fill="#A6362C"></circle>
-          <text x="257" y="222" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">PORT KLANG</text>
+          <circle class="port-dot" cx="275" cy="195" r="4" fill="#A6362C"></circle>
+          <text x="275" y="212" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">PORT KLANG</text>
 
-          <circle class="port-dot" cx="345" cy="215" r="4" fill="#A6362C"></circle>
-          <text x="317" y="232" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">MANILA</text>
+          <circle class="port-dot" cx="340" cy="185" r="4" fill="#A6362C"></circle>
+          <text x="340" y="202" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">MANILA</text>
 
-          <circle class="port-dot" cx="255" cy="255" r="4" fill="#A6362C"></circle>
-          <text x="220" y="252" font-family="IBM Plex Mono" font-size="10" fill="#3C4340" transform="translate(0,20)">JAKARTA</text>
-          <path class="route-line" d="M70,70 C230,140 260,190 255,255" stroke="#A6362C" stroke-width="1.4" fill="none"></path>
+          <circle class="port-dot" cx="250" cy="240" r="4" fill="#A6362C"></circle>
+          <text x="250" y="257" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3C4340">JAKARTA</text>
         </svg>
         <div class="route-caption">
           <span>6 destination ports</span>
