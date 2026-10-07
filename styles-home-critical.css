@@ -1,0 +1,239 @@
+
+  :root{
+    --paper:#EDEAE1;
+    --paper-2:#E4DFD1;
+    --ink:#1C2321;
+    --ink-soft:#3C4340;
+    --stamp:#A6362C;
+    --teak:#A87C4F;
+    --steel:#445055;
+    --line:#C9C2AC;
+    --white:#FAF9F5;
+
+    --display: 'Oswald', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img,svg{display:block;max-width:100%;}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--stamp);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--stamp);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    font-family:var(--display);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    font-weight:600;
+    line-height:1.04;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--stamp);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(237,234,225,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--display);
+    font-size:20px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .logo small{
+    font-family:var(--mono);
+    font-size:10px;
+    color:var(--ink-soft);
+    letter-spacing:.1em;
+  }
+  .navlinks{
+    display:flex;
+    gap:30px;
+    list-style:none;
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+  .navlinks a{
+    text-decoration:none;
+    position:relative;
+    padding-bottom:4px;
+  }
+  .navlinks a::after{
+    content:"";
+    position:absolute;left:0;bottom:0;
+    width:0;height:1px;background:var(--stamp);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:76px 0 40px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px,5vw,62px);
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--stamp);
+  }
+  .hero p.lede{
+    font-size:17px;
+    max-width:46ch;
+    color:var(--ink-soft);
+    margin-bottom:30px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:14px 22px;
+    text-decoration:none;
+    display:inline-block;
+    border:1px solid var(--ink);
+  }
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--stamp);border-color:var(--stamp);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
+
+  .hero-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+    max-width:46ch;
+  }
+
+  /* manifest / route panel */
+  .manifest{
+    background:var(--white);
+    border:1px solid var(--ink);
+    position:relative;
+    padding:26px 26px 20px;
+  }
+  .manifest::before{
+    content:"BILL OF LADING · FOSHAN → SEA";
+    position:absolute;
+    top:-11px;left:22px;
+    background:var(--paper);
+    padding:0 8px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+  }
+  .manifest svg{width:100%;height:auto;}
+  .route-caption{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    margin-top:10px;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+    text-transform:uppercase;
+  }
+
+  .route-line{
+    stroke-dasharray:6 6;
+    animation:dash 3.2s linear infinite;
+  }
+  .port-dot{
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes dash{ to { stroke-dashoffset:-120; } }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.35; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .route-line, .port-dot, .reveal{ animation:none !important; transition:none !important; }
+  }
+
