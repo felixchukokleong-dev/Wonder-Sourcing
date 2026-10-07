@@ -194,6 +194,15 @@ else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);})();</
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.wondersourcing.com/blog.html"},{"@type":"ListItem","position":3,"name":"Overseas Furniture Sourcing","item":"https://www.wondersourcing.com/overseas-furniture-sourcing.html"}]}</script>
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
 </main>
 </body>
 </html>

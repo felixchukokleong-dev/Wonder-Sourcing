@@ -176,6 +176,15 @@ else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);})();</
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What counts as unique furniture sourcing?","acceptedAnswer":{"@type":"Answer","text":"Unique furniture sourcing is sourcing pieces a competitor cannot buy from the same catalogue — original designs, factory-owned tooling, rare materials, or restricted finishes. It is a selection strategy, not a style."}},{"@type":"Question","name":"Where are unique furniture pieces made?","acceptedAnswer":{"@type":"Answer","text":"In Foshan and surrounding Guangdong towns, primarily in mould-based carpentry workshops and specialist upholstery studios on the edge of the furniture markets. Most are not visible on the open market."}},{"@type":"Question","name":"What volume do I need before a custom piece is worth it?","acceptedAnswer":{"@type":"Answer","text":"For a first run, 50 to 200 units is realistic for a bespoke piece. If you need five figures, the factory will recommend a standard SKU with a minor variation instead."}},{"@type":"Question","name":"Do unique pieces cost more?","acceptedAnswer":{"@type":"Answer","text":"Manufacturing cost is usually 20–40% higher than a catalogue SKU, but you sell at a brand price, not a marketplace price. The margin works when your customer is buying your design, not just the chair."}}]}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Insights","item":"https://www.wondersourcing.com/blog.html"},{"@type":"ListItem","position":3,"name":"Unique Furniture Sourcing","item":"https://www.wondersourcing.com/unique-furniture-sourcing.html"}]}</script>
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
 </main>
 </body>
 </html>
