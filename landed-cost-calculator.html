@@ -38,8 +38,88 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Landed cost calculator","item":"https://www.wondersourcing.com/landed-cost-calculator.html"}]}
+</script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is landed cost and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Landed cost is the true all-in price of your goods once they reach your warehouse - FOB plus freight, insurance, import duty, destination tax and inland delivery."}},{"@type":"Question","name":"Is FOB the price I pay?","acceptedAnswer":{"@type":"Answer","text":"No. FOB is the factory price at the port of loading; it excludes ocean freight, marine insurance, import duty, destination tax and inland delivery."}},{"@type":"Question","name":"What does the calculator add to FOB?","acceptedAnswer":{"@type":"Answer","text":"The calculator adds ocean freight, marine insurance, import duty, destination tax and inland delivery, and shows agent fee as a separate line because agent fees sit outside the customs value."}},{"@type":"Question","name":"Do I pay duty on furniture imported from China?","acceptedAnswer":{"@type":"Answer","text":"Many ASEAN markets are duty-free on furniture under free-trade agreements such as ASEAN-China with a valid Form E certificate of origin, which is why duty defaults to 0. Destination tax (GST or VAT) applies in all six markets; confirm current rates with your broker."}},{"@type":"Question","name":"Where do agent fees sit in the landed calculation?","acceptedAnswer":{"@type":"Answer","text":"Agent fees are a buying cost, not part of the customs value; they are added to the total but excluded from the duty base."}},{"@type":"Question","name":"What duty and tax applies at my destination?","acceptedAnswer":{"@type":"Answer","text":"Duty depends on the HS code and certificate of origin; destination tax is GST or VAT at the port of entry. Both fields are pre-filled as examples only."}},{"@type":"Question","name":"Does the calculator include demurrage or storage?","acceptedAnswer":{"@type":"Answer","text":"No. Demurrage, detention, currency movement and quality-failure costs are deliberately excluded so the number stays clean."}}]}
 </script>
-<link rel="stylesheet" href="styles-home.css">
+<style>
+  :root{
+    --paper:#EDEAE1;
+    --paper-2:#E4DFD1;
+    --ink:#1C2321;
+    --ink-soft:#3C4340;
+    --stamp:#A6362C;
+    --teak:#A87C4F;
+    --steel:#445055;
+    --line:#C9C2AC;
+    --white:#FAF9F5;
+
+    --display: 'Oswald', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--stamp);display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--stamp);display:inline-block;}
+
+  h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;font-weight:600;line-height:1.04;}
+  :focus-visible{outline:2px solid var(--stamp);outline-offset:3px;}
+
+  header.site{position:sticky;top:0;z-index:50;background:rgba(237,234,225,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
+  .logo{font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:baseline;gap:8px;text-decoration:none;color:var(--ink);}
+  .logo small{font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.1em;}
+  .navlinks{display:flex;gap:30px;list-style:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;}
+  .navlinks a{text-decoration:none;position:relative;padding-bottom:4px;}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--stamp);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a.active::after{width:100%;}
+  .nav-cta{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--ink);padding:9px 16px;text-decoration:none;white-space:nowrap;}
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:14px 22px;text-decoration:none;display:inline-block;border:1px solid var(--ink);}
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--stamp);border-color:var(--stamp);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
+
+  .pagehero{padding:64px 0 48px;border-bottom:1px solid var(--line);}
+  .pagehero .crumb{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px;}
+  .pagehero .crumb a{text-decoration:none;border-bottom:1px dashed var(--ink-soft);}
+  .pagehero h1{font-size:clamp(34px,4.6vw,54px);margin:14px 0 20px;max-width:18ch;}
+  .pagehero p.lede{font-size:17px;max-width:58ch;color:var(--ink-soft);}
+
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:14px;}
+  .section-head p{color:var(--ink-soft);margin-top:16px;font-size:15.5px;}
+
+  .cta-strip{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;padding:80px 0;}
+  .cta-strip h2{font-size:clamp(26px,3.6vw,40px);margin:16px 0 28px;max-width:26ch;margin-left:auto;margin-right:auto;}
+
+  footer{background:var(--ink);color:#9FA8A5;padding:56px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid #3A4340;}
+  .foot-logo{font-family:var(--display);color:var(--white);font-size:20px;text-transform:uppercase;margin-bottom:14px;}
+  footer p{font-size:13.5px;line-height:1.6;max-width:34ch;}
+  footer h5{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#D9B88A;margin-bottom:14px;}
+  footer ul{list-style:none;}
+  footer li{margin-bottom:9px;font-size:13.5px;}
+  footer a{text-decoration:none;}
+  footer a:hover{color:var(--white);}
+  .foot-bottom{display:flex;justify-content:space-between;padding-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;flex-wrap:wrap;gap:10px;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){.reveal{transition:none;}}
+
+  @media (max-width:920px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:640px){.wrap{padding:0 20px;}.navlinks{display:none;}.nav-cta{font-size:11px;padding:8px 12px;}section{padding:60px 0;}.foot-grid{grid-template-columns:1fr;gap:28px;}}
+</style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VTRDBDYT7Y');</script>
@@ -53,6 +133,50 @@ document.addEventListener('submit',function(e){var f=e.target;
 if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);
 })();</script>
 <!-- ws:analytics:end -->
+<style>
+  /* ---------- LANDED COST CALCULATOR ---------- */
+  .timeline{border-top:1px solid var(--line);}
+  .tl-row{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:24px 0;border-bottom:1px dashed var(--line);}
+  .tl-row .month{font-family:var(--mono);font-size:12.5px;color:var(--stamp);letter-spacing:.05em;text-transform:uppercase;}
+  .tl-row h3{font-size:16px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:4px;letter-spacing:0;}
+  .tl-row p{color:var(--ink-soft);font-size:14px;}
+  .calc-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start;}
+  .calc-panel{border:1px solid var(--line);background:var(--white);padding:28px;}
+  .calc-group{margin-bottom:26px;padding-bottom:24px;border-bottom:1px dashed var(--line);}
+  .calc-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  .calc-group h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stamp);margin-bottom:16px;font-weight:500;}
+  .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .calc-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .calc-field label{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .calc-field input,.calc-field select{font-family:var(--body);font-size:15px;padding:11px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);width:100%;box-sizing:border-box;}
+  .calc-field input:focus,.calc-field select:focus{outline:2px solid var(--stamp);outline-offset:1px;}
+  .calc-hint{font-size:12px;color:var(--ink-soft);line-height:1.45;}
+  .calc-out{position:sticky;top:24px;border:1px solid var(--ink);background:var(--paper-2);padding:26px;}
+  .out-row{display:flex;justify-content:space-between;gap:14px;font-size:14px;padding:8px 0;border-bottom:1px solid var(--line);}
+  .out-row span:last-child{font-family:var(--mono);white-space:nowrap;}
+  .out-row.sub span:first-child{padding-left:14px;color:var(--ink-soft);}
+  .out-total{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:18px;padding-top:16px;border-top:2px solid var(--ink);}
+  .out-total .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;}
+  .out-total .val{font-family:var(--display);font-size:34px;font-weight:600;line-height:1;}
+  .out-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+  .out-stat{background:var(--white);border:1px solid var(--line);padding:14px;}
+  .out-stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--stamp);display:block;margin-bottom:6px;}
+  .out-stat .v{font-family:var(--display);font-size:22px;font-weight:600;}
+  .calc-bar{display:flex;height:10px;margin-top:20px;border:1px solid var(--line);background:var(--white);}
+  .calc-bar i{display:block;height:100%;}
+  .bar-key{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .bar-key b{display:inline-block;width:8px;height:8px;margin-right:5px;}
+  @media (max-width:900px){.calc-grid{grid-template-columns:1fr;gap:28px;}.calc-out{position:static;}}
+  @media (max-width:560px){.calc-row{grid-template-columns:1fr;}}
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(28,35,33,0.28);transition:transform .2s ease, box-shadow .2s ease;text-decoration:none;}
+  .whatsapp-float:hover{transform:scale(1.07);box-shadow:0 8px 22px rgba(28,35,33,0.34);}
+  .whatsapp-float svg{width:29px;height:29px;fill:#fff;}
+  .whatsapp-float .wa-label{position:absolute;right:70px;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:8px 12px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateX(6px);transition:opacity .2s ease, transform .2s ease;}
+  .whatsapp-float:hover .wa-label{opacity:1;transform:translateX(0);}
+  @media (max-width:640px){.whatsapp-float{width:52px;height:52px;bottom:18px;right:18px;}.whatsapp-float svg{width:26px;height:26px;}.whatsapp-float .wa-label{display:none;}}
+</style>
 </head>
 <body>
 
@@ -193,6 +317,61 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
       </div>
     </div>
   </section>
+
+<!-- ws:faq:start -->
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Questions the landed number raises.</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>What is landed cost, and why not just use the FOB quote?</h3>
+            <p>FOB is the factory price at the port of loading, so the margin calculation is already missing freight, insurance, duty, destination tax and inland delivery. Landed cost is FOB plus exactly those items - the figure your business actually pays.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>Is the freight input the same for every sailing?</h3>
+            <p>No. Ocean freight is the input worth getting from a forwarder rather than estimating, because the same container can quote very differently by sailing, season and destination. The calculator uses your total ocean freight figure rather than guessing a per-container rate.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>Does the duty field default to zero because I get duty free?</h3>
+            <p>Duty defaults to 0 because many furniture lines enter ASEAN duty-free under the ASEAN-China Free Trade Area with a valid Form E certificate of origin - not because duty is never owed. Whether it applies depends on the HS code and whether the certificate is issued and presented correctly.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>Where does the agent fee appear in the number?</h3>
+            <p>Agent fees are a buying cost, not part of the customs value. They are added to the total but excluded from the duty base, which is why the calculator shows them separately.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>Does the result include demurrage or storage?</h3>
+            <p>No. Demurrage, detention, currency movement and the cost of resolving a quality failure are excluded so the number stays clean. They are real, and better budgeted as contingency than silently added into landed cost.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="month">FAQ</div>
+          <div>
+            <h3>Are the duty and tax rates I am shown the right ones for me?</h3>
+            <p>Duty depends on the HS code and on whether you hold the correct certificate of origin; destination tax is GST or VAT at your port of entry. Both fields are pre-filled only to show order of magnitude and are editable - confirm the figures that apply to you with your broker.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- ws:faq:end -->
 
   <section class="cta-strip">
     <div class="wrap reveal">
