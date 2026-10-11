@@ -10,7 +10,9 @@ large set, 540x675 for the small one.
 | Where | Photos | What they are |
 | --- | --- | --- |
 | `why-foshan.html` | 8 | Showroom floors — chair rows, armchair halls, warehouse racking |
-| `services.html` | 10 | Product shots plus warehouse stock and consolidation |
+| `services.html` | 12 | Product shots plus warehouse stock, consolidation, and container loading |
+| `how-to-consolidate-factory-orders.html` | 1 | Crate loading to plan, beside the loading-plan section |
+| `container-loading-tips-furniture.html` | 1 | Numbered crates staged for loading, beside the load-documentation section |
 
 Both galleries use the same horizontal scroll-snap rail as the stat cards, so
 no new CSS was needed. Markup lives between `<!-- ws:gallery:start/end -->`
