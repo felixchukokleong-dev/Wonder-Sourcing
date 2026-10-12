@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -464,23 +470,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>Which country is best for furniture sourcing in 2026?</h3>
           <p>For mainstream casegoods, upholstery and multi-category orders, Foshan remains the strongest choice — no other hub matches its concentration of specialist factories across materials. Vietnam leads on wood furniture, Indonesia on teak and rattan, and closer alternatives suit small single-material orders.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Why do most buyers still end up sourcing from Foshan?</h3>
           <p>Foshan concentrates wood, upholstery, rattan and metal specialists in one district, letting a buyer consolidate several categories into a single coordinated order and one shipment — a combination of breadth and consolidation that no Southeast Asian hub currently replicates.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Do tariffs matter more than factory price when choosing a country?</h3>
           <p>Frequently, yes. Where goods are manufactured materially changes duty treatment on arrival — sometimes more than the factory price gap. It's worth checking current rules of origin for your destination market before settling the shortlist, because they can reorder the ranking entirely.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Can I split one order across two countries?</h3>
           <p>Yes, and it's common — e.g. Indonesian teak with Chinese upholstery. It works when categories are clearly separated by factory. The cost is two factory relationships, two sets of samples and two production schedules; painful if both factories produce the same product line.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">

@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -465,23 +471,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>Should I contact a factory or a sourcing agent first?</h3>
           <p>If you have a finished technical specification and need one product made, go to a factory that already makes it. If you need to compare factories, negotiate, and have production and freight managed, start with a sourcing service — that comparison and management work is the service you are buying.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Can one company do both sourcing and manufacturing?</h3>
           <p>Often, but name which half you are paying for. A sourcing agent who finds a factory is doing the first half of sourcing; the factory then takes over production. Projects go wrong quietly when nobody is accountable for the gap between what was ordered and what arrived.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Which costs more — sourcing or manufacturing?</h3>
           <p>Manufacturing is the larger invoice because it covers materials, labour and tooling. Sourcing is the smaller fee that protects the larger invoice: vetting, negotiation, inspection and consolidation. Skipping the smaller cost to save money is how buyers overpay on the larger one.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>I want a new design made — is that sourcing or manufacturing?</h3>
           <p>Primarily manufacturing, and it should be scoped as its own project: drawings, prototypes, tooling decisions and possibly compliance testing, all before freight is discussed. If you are buying an existing design in an established category, sourcing is most of the work and manufacturing is largely routine.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">

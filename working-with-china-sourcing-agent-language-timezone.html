@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -460,23 +466,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>How do I avoid specification errors across a language gap?</h3>
           <p>Put everything in writing — verbal and voice-message instructions lose precision in translation. Confirm every spec change or decision in writing, use photos and marked-up sketches over descriptions, and have the agent summarize decisions back in their own words to catch misunderstandings.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Which details get lost in translation most often?</h3>
           <p>Colours and finishes fail because names don't map across brands; dimensions and hardware specs survive translation badly when passed verbally. These deserve particular care — pair every written statement with a photo or marked-up sample image.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>How do I handle time zones working with a China agent?</h3>
           <p>Most of Southeast Asia sits within an hour or two of China — a far smaller disadvantage than Europe or the Americas. Confirm a specific daily window for real-time questions and keep the rest asynchronous in writing; overlap hours beat hoping for instant replies.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>What's the best way to resolve a disagreement with a factory?</h3>
           <p>While the goods are still in production. Once shipped or delivered, leverage collapses — so surface issues early, in writing, with photo evidence attached to the specific spec line, when rework is still a matter of changing a set-up rather than re-ordering.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">

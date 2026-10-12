@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -466,23 +472,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>What should I ask an agent before hiring them?</h3>
           <p>Ask what happens if the first sample fails and the factory refuses to re-cut it — a serious agent already has an answer. Also ask who performs inspection, whether you see real FOB pricing, which factories they've worked with in your category, and for references from your own market.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Is a low sourcing agent fee a good deal?</h3>
           <p>An implausibly low percentage usually means the real income comes from somewhere you can't see — hidden markup in the factory price or undisclosed factory commission. A transparent agent shows the factory FOB price and their fee as separate numbers.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Does it matter where the sourcing agent is based?</h3>
           <p>Yes — an agent physically based in Foshan who walks factory floors regularly has faster response times and better on-the-ground relationships than one operating remotely from another city or country, which matters when an inspection or shipment needs immediate attention.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Flat fee or percentage — which fee model is better?</h3>
           <p>A flat fee for a defined scope is cleanest at lower volumes because your cost is knowable before the order starts. A percentage arrangement suits larger or repeat orders where the fee scales with the work involved. Either way, the scope should be written down.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">

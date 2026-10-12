@@ -93,11 +93,25 @@
   .model p{color:var(--ink-soft);font-size:14.5px;margin-bottom:14px;}
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
-  /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
+  /* faq ledger: numbered Q&A, shared by every FAQ block sitewide */
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
   .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-ledger{counter-reset:faq;}
   .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
   .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
+
+  /* article-cta: single-line cross-links, plus the roomier summary variant */
+  .article-cta{margin-top:14px;padding:22px 26px;background:var(--paper-2);border:1px solid var(--line);
+    font-size:15px;color:var(--ink-soft);line-height:1.65;}
+  .article-cta a{color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp);font-weight:600;}
+  .article-cta.summary{padding:30px 32px;}
+  .article-cta.summary h2{font-size:19px;margin:0 0 12px;letter-spacing:.015em;}
+  .article-cta.summary p{margin:0 0 12px;max-width:68ch;}
+  .article-cta.summary p:last-child{margin-bottom:0;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}

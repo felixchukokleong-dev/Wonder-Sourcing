@@ -41,9 +41,7 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.wondersourcing.com/"},{"@type":"ListItem","position":2,"name":"Landed cost calculator","item":"https://www.wondersourcing.com/landed-cost-calculator.html"}]}
-</script><script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is landed cost and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Landed cost is the true all-in price of your goods once they reach your warehouse - FOB plus freight, insurance, import duty, destination tax and inland delivery."}},{"@type":"Question","name":"Is FOB the price I pay?","acceptedAnswer":{"@type":"Answer","text":"No. FOB is the factory price at the port of loading; it excludes ocean freight, marine insurance, import duty, destination tax and inland delivery."}},{"@type":"Question","name":"What does the calculator add to FOB?","acceptedAnswer":{"@type":"Answer","text":"The calculator adds ocean freight, marine insurance, import duty, destination tax and inland delivery, and shows agent fee as a separate line because agent fees sit outside the customs value."}},{"@type":"Question","name":"Do I pay duty on furniture imported from China?","acceptedAnswer":{"@type":"Answer","text":"Many ASEAN markets are duty-free on furniture under free-trade agreements such as ASEAN-China with a valid Form E certificate of origin, which is why duty defaults to 0. Destination tax (GST or VAT) applies in all six markets; confirm current rates with your broker."}},{"@type":"Question","name":"Where do agent fees sit in the landed calculation?","acceptedAnswer":{"@type":"Answer","text":"Agent fees are a buying cost, not part of the customs value; they are added to the total but excluded from the duty base."}},{"@type":"Question","name":"What duty and tax applies at my destination?","acceptedAnswer":{"@type":"Answer","text":"Duty depends on the HS code and certificate of origin; destination tax is GST or VAT at the port of entry. Both fields are pre-filled as examples only."}},{"@type":"Question","name":"Does the calculator include demurrage or storage?","acceptedAnswer":{"@type":"Answer","text":"No. Demurrage, detention, currency movement and quality-failure costs are deliberately excluded so the number stays clean."}}]}
-</script>
+</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is landed cost, and why not just use the FOB quote?", "acceptedAnswer": {"@type": "Answer", "text": "FOB is the factory price at the port of loading, so the margin calculation is already missing freight, insurance, duty, destination tax and inland delivery. Landed cost is FOB plus exactly those items - the figure your business actually pays."}}, {"@type": "Question", "name": "Is the freight input the same for every sailing?", "acceptedAnswer": {"@type": "Answer", "text": "No. Ocean freight is the input worth getting from a forwarder rather than estimating, because the same container can quote very differently by sailing, season and destination. The calculator uses your total ocean freight figure rather than guessing a per-container rate."}}, {"@type": "Question", "name": "Does the duty field default to zero because I get duty free?", "acceptedAnswer": {"@type": "Answer", "text": "Duty defaults to 0 because many furniture lines enter ASEAN duty-free under the ASEAN-China Free Trade Area with a valid Form E certificate of origin - not because duty is never owed. Whether it applies depends on the HS code and whether the certificate is issued and presented correctly."}}, {"@type": "Question", "name": "Where does the agent fee appear in the number?", "acceptedAnswer": {"@type": "Answer", "text": "Agent fees are a buying cost, not part of the customs value. They are added to the total but excluded from the duty base, which is why the calculator shows them separately."}}, {"@type": "Question", "name": "Does the result include demurrage or storage?", "acceptedAnswer": {"@type": "Answer", "text": "No. Demurrage, detention, currency movement and the cost of resolving a quality failure are excluded so the number stays clean. They are real, and better budgeted as contingency than silently added into landed cost."}}, {"@type": "Question", "name": "Are the duty and tax rates I am shown the right ones for me?", "acceptedAnswer": {"@type": "Answer", "text": "Duty depends on the HS code and on whether you hold the correct certificate of origin; destination tax is GST or VAT at your port of entry. Both fields are pre-filled only to show order of magnitude and are editable - confirm the figures that apply to you with your broker."}}]}</script>
 <style>
   :root{
     --paper:#EDEAE1;
@@ -122,6 +120,16 @@
 
   @media (max-width:920px){.foot-grid{grid-template-columns:1fr 1fr;}}
   @media (max-width:640px){.wrap{padding:0 20px;}.navlinks{display:none;}.nav-cta{font-size:11px;padding:8px 12px;}section{padding:60px 0;}.foot-grid{grid-template-columns:1fr;gap:28px;}}
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
@@ -329,7 +337,7 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         <div class="eyebrow">Common questions</div>
         <h2>Questions the landed number raises.</h2>
       </div>
-      <div class="timeline reveal">
+      <div class="timeline reveal faq-ledger">
         <div class="tl-row">
           <div class="month">FAQ</div>
           <div>

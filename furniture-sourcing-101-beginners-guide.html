@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -464,23 +470,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>How much does it cost to start sourcing furniture from China?</h3>
           <p>The factory price is only the first layer. Budget for samples and courier fees, a deposit against the order, the balance against bill of lading, ocean freight and insurance, destination duty, and inland delivery — which may need two people for a full container. Running the full landed calculation before ordering is what keeps a first project properly scoped.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>What is the minimum order when sourcing furniture directly?</h3>
           <p>It depends on the factory and the product, but expect a per-SKU minimum rather than a per-order one. Resist the urge to commit full volume immediately: a smaller first order shows how the factory actually behaves — sample accuracy, communication, timeline discipline — and that knowledge is what makes the second, larger order safe.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Do I need a sourcing agent for my first order?</h3>
           <p>Not always, but first-time buyers usually underestimate two things: writing a specification a factory cannot misread, and verifying production independently before it ships. If you can do both yourself, direct ordering works. If not, an agent covers exactly those two gaps.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>How long does a first furniture order take?</h3>
           <p>Sampling first, then production, inspection and freight — each stage has its own lead time and they stack rather than overlap. Build the timeline backwards from when you need the goods landed, not from when you place the order.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">

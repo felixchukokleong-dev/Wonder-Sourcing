@@ -116,10 +116,6 @@
   .model .price{font-family:var(--mono);font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* faq */
-  .faq-item{border-top:1px solid var(--line);padding:26px 0;}
-  .faq-item:last-child{border-bottom:1px solid var(--line);}
-  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
-  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
 
   .cta-strip{background:var(--ink);color:var(--white);text-align:center;padding:80px 0;}
   .cta-strip .eyebrow{color:#D9B88A;justify-content:center;}
@@ -372,6 +368,16 @@
     .whatsapp-float .wa-label{display:none;}
   }
 
+
+  .faq-ledger{counter-reset:faq;}
+  .faq-item{border-top:1px solid var(--line);padding:26px 0 26px 64px;position:relative;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    position:absolute;left:0;top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--stamp);}
+  .faq-item h3{font-size:17px;text-transform:none;font-family:var(--body);font-weight:600;margin-bottom:8px;letter-spacing:0;}
+  .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
+  .faq-item p:last-child{margin-bottom:0;}
+  @media(max-width:640px){.faq-item{padding-left:48px;}}
 </style>
 <!-- ws:seo:start -->
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -467,23 +473,28 @@
 <!-- ws:expand:end -->
 
 <!-- ws:faq:start -->
-        <h2>Common questions</h2>
-        <div class="faq-item">
+        <div class="section-head reveal">
+        <div class="eyebrow">Common questions</div>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-ledger">
+        <div class="faq-item reveal">
           <h3>What do I need before starting a furniture sourcing business?</h3>
           <p>Decide what you're selling before choosing a factory: category, materials, target price point, order volume, and destination. The most expensive early mistake is choosing a factory and a product simultaneously — it forces the range around whatever one supplier happens to make.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>Should a first-time importer use an agent or source directly?</h3>
           <p>First-time buyers without China experience or language capability generally get more value from a sourcing agent — particularly for vetting, sampling and inspection. Direct sourcing rewards buyers who already have factory relationships and can verify goods themselves.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>How many factories should a new sourcing business work with?</h3>
           <p>Fewer than you think. Ten factories means ten sets of samples, ten inspections and ten schedules to reconcile. Build a range that shares factories — categories that one or two workshops can produce — until the process repeats reliably.</p>
         </div>
-        <div class="faq-item">
+        <div class="faq-item reveal">
           <h3>How do I price furniture for my destination market?</h3>
           <p>Price from landed cost, not factory cost plus a margin — freight, insurance, duty and destination handling routinely change the picture. The first year's goal is repeatability, not scale: a second order that goes smoothly, with every step documented.</p>
         </div>
+      </div>
 <!-- ws:faq:end -->
 
         <div class="article-cta">
