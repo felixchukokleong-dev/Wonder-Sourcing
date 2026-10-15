@@ -50,7 +50,9 @@ function t(n,p){if(typeof gtag==='function')gtag('event',n,p||{});}
 document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
 if(!a)return;var h=a.getAttribute('href')||'';
 if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});
-else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
+else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});
+else if(a.classList.contains('nav-cta')||a.closest('.cta-strip'))t('start_brief_click',{link_url:h});
+else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{link_url:h});},true);
 })();</script>
 <!-- ws:analytics:end -->
 </head>

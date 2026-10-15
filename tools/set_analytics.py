@@ -26,7 +26,11 @@ def build(ga4, gsc):
     out.append("document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;")
     out.append("if(!a)return;var h=a.getAttribute('href')||'';")
     out.append("if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});")
-    out.append("else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);")
+    out.append("else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});")
+    # Primary conversion micro-actions: the 'Start a brief' buttons (nav CTA and
+    # cta-strip) and content-to-content hops (blog cards / related guides).
+    out.append("else if(a.classList.contains('nav-cta')||a.closest('.cta-strip'))t('start_brief_click',{link_url:h});")
+    out.append("else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{link_url:h});},true);")
     # NOTE: generate_lead{form_id:'sourcing_inquiry'} deliberately does NOT fire on
     # every submit. contact.html posts to Web3Forms via fetch, and the event fires
     # from handleInquirySubmit only after the POST succeeds — so GA4 counts real
