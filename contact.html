@@ -402,9 +402,15 @@ else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
       body: new FormData(form),
       headers: { 'Accept': 'application/json' }
     })
-    .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-    .then(function(){
-      if (typeof gtag === 'function') t('generate_lead', { form_id: 'sourcing_inquiry' });
+    .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
+    .then(function(txt){
+      // Web3Forms answers JSON; tolerate a non-JSON 200 (redirect landing page)
+      // as delivered, but treat an explicit success:false as a failure.
+      var data = {};
+      try { data = JSON.parse(txt); } catch (e) {}
+      if (data.success === false) throw new Error(data.message || 'rejected');
+      // gtag is global; do NOT use t() here - it is scoped to the head analytics IIFE.
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_id: 'sourcing_inquiry' });
       showConfirmation(form, company);
     })
     .catch(function(){
