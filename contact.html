@@ -176,7 +176,6 @@ document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e
 if(!a)return;var h=a.getAttribute('href')||'';
 if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});
 else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
-/* generate_lead fires from handleInquirySubmit only after the Web3Forms POST succeeds */
 })();</script>
 <!-- ws:analytics:end -->
 </head>
