@@ -27,8 +27,10 @@ def build(ga4, gsc):
     out.append("if(!a)return;var h=a.getAttribute('href')||'';")
     out.append("if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});")
     out.append("else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);")
-    out.append("document.addEventListener('submit',function(e){var f=e.target;")
-    out.append("if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);")
+    # NOTE: generate_lead{form_id:'sourcing_inquiry'} deliberately does NOT fire on
+    # every submit. contact.html posts to Web3Forms via fetch, and the event fires
+    # from handleInquirySubmit only after the POST succeeds — so GA4 counts real
+    # submissions, not clicks that never left the browser.
     out.append('})();</script>')
     out.append(END)
     return '\n'.join(out)

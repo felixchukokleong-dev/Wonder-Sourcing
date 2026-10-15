@@ -176,8 +176,7 @@ document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e
 if(!a)return;var h=a.getAttribute('href')||'';
 if(h.indexOf('wa.me')>-1)t('contact_whatsapp',{link_url:h});
 else if(h.indexOf('mailto:')===0)t('contact_email',{link_url:h});},true);
-document.addEventListener('submit',function(e){var f=e.target;
-if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form_id:'sourcing_inquiry'});},true);
+/* generate_lead fires from handleInquirySubmit only after the Web3Forms POST succeeds */
 })();</script>
 <!-- ws:analytics:end -->
 </head>
@@ -234,15 +233,22 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         </table>
       </div>
 
-      <form class="manifest-form reveal" data-label="SOURCING INQUIRY FORM" onsubmit="return handleInquirySubmit(event, this);">
+      <!-- Web3Forms: delivers submissions to hello@wondersourcing.com. Free & unlimited.
+           Replace the access_key value with your own from https://web3forms.com (Settings -> Access Key). -->
+      <form class="manifest-form reveal" data-label="SOURCING INQUIRY FORM" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleInquirySubmit(event, this);">
+        <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-ACCESS-KEY">
+        <input type="hidden" name="subject" value="New sourcing inquiry — wondersourcing.com">
+        <input type="hidden" name="from_name" value="Wonder Sourcing website">
+        <input type="hidden" name="redirect" value="https://www.wondersourcing.com/contact.html?sent=1">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-row">
           <div class="field">
             <label for="company">Company</label>
-            <input id="company" type="text" required>
+            <input id="company" name="company" type="text" required>
           </div>
           <div class="field">
             <label for="country">Country</label>
-            <select id="country">
+            <select id="country" name="country">
               <option>Vietnam</option>
               <option>Thailand</option>
               <option>Indonesia</option>
@@ -256,41 +262,42 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
         <div class="form-row">
           <div class="field">
             <label for="email">Your email</label>
-            <input id="email" type="email" required placeholder="you@company.com">
+            <input id="email" name="email" type="email" required placeholder="you@company.com">
           </div>
           <div class="field">
             <label for="phone">Phone or WhatsApp (optional)</label>
-            <input id="phone" type="tel" placeholder="+65 9123 4567">
+            <input id="phone" name="phone" type="tel" placeholder="+65 9123 4567">
           </div>
         </div>
         <div class="form-row">
           <div class="field">
             <label for="category">Product category</label>
-            <input id="category" type="text" placeholder="e.g. hotel casegoods">
+            <input id="category" name="category" type="text" placeholder="e.g. hotel casegoods">
           </div>
           <div class="field">
             <label for="volume">Est. monthly volume</label>
-            <input id="volume" type="text" placeholder="e.g. 1 x 40ft container">
+            <input id="volume" name="volume" type="text" placeholder="e.g. 1 x 40ft container">
           </div>
         </div>
         <div class="form-row">
           <div class="field full">
             <label for="message">Project details</label>
-            <textarea id="message" placeholder="Product type, target price, timeline..."></textarea>
+            <textarea id="message" name="message" placeholder="Product type, target price, timeline..."></textarea>
           </div>
         </div>
         <button class="submit-btn" type="submit">Submit inquiry</button>
-        <div class="form-foot">This opens your email app with the enquiry pre-filled and addressed to hello@wondersourcing.com. Nothing is sent until you press send there.</div>
+        <div class="form-foot">Your details go straight to hello@wondersourcing.com. We reply to every enquiry within 48 hours, Monday to Saturday, GMT+8.</div>
+        <div class="form-foot" id="formError" role="alert" hidden style="color:#b42318;margin-top:12px;">Something went wrong sending your enquiry. Please try again, or message us on WhatsApp (bottom right) or email <a href="mailto:hello@wondersourcing.com">hello@wondersourcing.com</a>.</div>
       </form>
 
       <div class="form-sent" id="formSent" data-label="ENQUIRY LOGGED" role="status" aria-live="polite" tabindex="-1" hidden>
         <div class="sent-badge" aria-hidden="true">&#10003;</div>
-        <h3 id="sentTitle">Your enquiry is on its way.</h3>
-        <p id="sentLead"></p>
+        <h3 id="sentTitle">Your enquiry has been sent.</h3>
+        <p id="sentLead">Thank you — your brief has reached our office and sits with the sourcing team.</p>
         <p class="sent-next">We answer every enquiry within 48 hours, Monday to Saturday, GMT+8.</p>
         <div class="sent-actions">
-          <a id="sentOpenMail" href="mailto:hello@wondersourcing.com">Open my email app again</a>
           <a href="https://wa.me/8618941315597?text=Hi%20Wonder%20Sourcing%2C%20I%27d%20like%20a%20sourcing%20quote." target="_blank" rel="noopener">Message on WhatsApp</a>
+          <a href="mailto:hello@wondersourcing.com">Email us directly instead</a>
         </div>
         <p class="sent-again"><button type="button" class="link-btn" id="sentAgain">Send another enquiry</button></p>
       </div>
@@ -379,78 +386,46 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
   },{threshold:0.15});
   els.forEach(el=>io.observe(el));
 
+  // Posts the form to Web3Forms (plain fetch, no SDK) so the enquiry lands in
+  // hello@wondersourcing.com's inbox directly. generate_lead fires only after
+  // the POST succeeds - GA4 counts real submissions, not clicks.
   function handleInquirySubmit(event, form){
     event.preventDefault();
 
-    const company  = form.querySelector('#company').value.trim();
-    const country  = form.querySelector('#country').value;
-    const email    = form.querySelector('#email').value.trim();
-    const phone    = form.querySelector('#phone').value.trim();
-    const category = form.querySelector('#category').value.trim();
-    const volume   = form.querySelector('#volume').value.trim();
-    const message  = form.querySelector('#message').value.trim();
+    var company = form.querySelector('#company').value.trim();
+    var btn = form.querySelector('.submit-btn');
+    var err = document.getElementById('formError');
+    if (err) err.hidden = true;
+    if (btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
 
-    const subject = `Sourcing inquiry — ${company || 'New inquiry'}`;
-    const bodyLines = [
-      `Company: ${company}`,
-      `Country: ${country}`,
-      `Reply to: ${email}`,
-      `Phone / WhatsApp: ${phone}`,
-      `Product category: ${category}`,
-      `Est. monthly volume: ${volume}`,
-      '',
-      'Project details:',
-      message
-    ];
-
-    const mailto = `mailto:hello@wondersourcing.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-
-    showConfirmation(form, company, mailto);
-    loadInFrame(mailto);   // opens the mail client without navigating the tab
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(){
+      if (typeof gtag === 'function') t('generate_lead', { form_id: 'sourcing_inquiry' });
+      showConfirmation(form, company);
+    })
+    .catch(function(){
+      if (btn){ btn.disabled = false; btn.textContent = 'Submit inquiry'; }
+      if (err) err.hidden = false;
+    });
     return false;
   }
 
-  // Load the mailto in a hidden frame rather than assigning window.location.
-  // Assigning location navigates away from the page, and on a device with no
-  // mail handler registered the browser lands on a blank page - the visitor
-  // loses the site and the enquiry with no explanation on either side.
-  function loadInFrame(url){
-    var id = 'wsMailFrame';
-    var f = document.getElementById(id);
-    if (!f){
-      f = document.createElement('iframe');
-      f.id = id;
-      f.setAttribute('aria-hidden', 'true');
-      f.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
-      document.body.appendChild(f);
-    }
-    try { f.src = url; } catch (e) {}
-  }
-
-  function showConfirmation(form, company, mailto){
+  function showConfirmation(form, company){
     var sent  = document.getElementById('formSent');
     var title = document.getElementById('sentTitle');
     var lead  = document.getElementById('sentLead');
-    var again = document.getElementById('sentOpenMail');
 
-    var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
-    var mobile = /Android|iPhone|iPad|iPod|Mac OS X/i.test(ua);
-    var who = company ? 'the enquiry for ' + company : 'your enquiry';
-
-    if (mobile){
-      if (title) title.textContent = 'Your enquiry is ready to send.';
-      if (lead) lead.textContent = 'Your email app should have opened with ' + who +
-        ' already filled in. Nothing is sent until you press send there.';
-    } else if (lead){
-      lead.textContent = 'We have put ' + who + ' into an email addressed to ' +
-        'hello@wondersourcing.com. If your email app did not open, use one of the ' +
-        'options below and we will pick it up straight away.';
-    }
-
-    if (again) again.href = mailto;   // a real mailto, so it always works
+    if (title) title.textContent = 'Your enquiry has been sent.';
+    if (lead) lead.textContent = 'Thank you \u2014 the brief' + (company ? ' for ' + company : '') +
+      ' has reached our office and sits with the sourcing team.';
 
     var btn = form.querySelector('.submit-btn');
-    if (btn) btn.textContent = 'Submit inquiry';
+    if (btn){ btn.disabled = false; btn.textContent = 'Submit inquiry'; }
 
     form.hidden = true;
     if (sent){ sent.hidden = false; sent.focus(); }
@@ -459,16 +434,26 @@ if(f&&f.classList&&f.classList.contains('manifest-form'))t('generate_lead',{form
 
   (function(){
     var againBtn = document.getElementById('sentAgain');
-    if (!againBtn) return;
-    againBtn.addEventListener('click', function(){
+    if (againBtn) againBtn.addEventListener('click', function(){
       var sent = document.getElementById('formSent');
       var form = document.querySelector('form.manifest-form');
+      var err  = document.getElementById('formError');
+      if (err) err.hidden = true;
       if (sent) sent.hidden = true;
       if (form){
         form.hidden = false;
         try { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
       }
     });
+
+    // No-JS fallback: Web3Forms redirects back to contact.html?sent=1 after a
+    // native form POST (used when JavaScript is unavailable). Show the panel.
+    if (/(?:^|[?&])sent=1(?:&|$)/.test(location.search)){
+      var form = document.querySelector('form.manifest-form');
+      var sent = document.getElementById('formSent');
+      if (form) form.hidden = true;
+      if (sent) sent.hidden = false;
+    }
   })();
 </script>
 
