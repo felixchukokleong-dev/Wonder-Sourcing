@@ -42,6 +42,34 @@ def build(ga4, gsc):
 def strip(h):
     return re.sub(re.escape(START) + '[\s\S]*?' + re.escape(END) + r'\n?', '', h)
 
+def strip_strays(h, ga4):
+    """Strip hand-written gtag snippets that live outside the managed block.
+
+    Ten guide pages shipped with a hand-written Google tag in <head>; adding
+    the managed block on top of it double-counted every pageview on those
+    pages. Stray inline config scripts and gtag.js loader tags are now removed
+    on every run. A stray referencing a DIFFERENT measurement ID is returned
+    to the caller so it can abort instead of silently deleting another
+    property's tag.
+    """
+    ids = set()
+    def inline_cb(m):
+        ids.update(re.findall(r"gtag\(\s*['\"]config['\"]\s*,\s*['\"]([A-Za-z0-9-]+)", m.group(0)))
+        return ''
+    # inline scripts that call gtag('config', ...) - the managed block was
+    # already removed by strip() before this runs, so anything matching is stray
+    h = re.sub(r'<script>(?:(?!</script>)[\s\S])*?gtag\(\s*[\'"]config[\'"](?:(?!</script>)[\s\S])*?</script>',
+               inline_cb, h)
+    def src_cb(m):
+        q = re.search(r'id=([A-Za-z0-9-]+)', m.group(0))
+        if q: ids.add(q.group(1))
+        return ''
+    h = re.sub(r'(?:<!--\s*Google tag \(gtag\.js\)\s*-->\s*)?'
+               r'<script[^>]+src="https://www\.googletagmanager\.com/gtag/js\?id=[A-Za-z0-9-]+"[^>]*>\s*</script>\s*',
+               src_cb, h)
+    foreign = ids - ({ga4} if ga4 else set())
+    return h, foreign, bool(ids)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--ga4'); ap.add_argument('--gsc')
@@ -64,9 +92,16 @@ def main():
 
     files = sorted(f for f in os.listdir('.') if f.endswith('.html'))
     touched = 0
+    strays = 0
     for f in files:
         h = open(f, encoding='utf-8').read()
         h = strip(h)
+        h, foreign, removed = strip_strays(h, a.ga4 or '')
+        if foreign and not a.remove:
+            sys.exit('ERROR: %s has a hand-written gtag for a different measurement ID: %s\n'
+                     '         Remove it manually, or re-run with that ID via --ga4.'
+                     % (f, ', '.join(sorted(foreign))))
+        if removed: strays += 1
         if a.remove:
             if h != open(f, encoding='utf-8').read():
                 open(f, 'w', encoding='utf-8').write(h); touched += 1
@@ -84,6 +119,8 @@ def main():
         else:
             open(f, 'w', encoding='utf-8').write(h); touched += 1
     print(('DRY RUN: ' if a.dry_run else '') + '%d files %s' % (touched, 'stripped' if a.remove else 'updated'))
+    if strays:
+        print('stray hand-written gtag snippets removed from %d files' % strays)
 
 
 if __name__ == '__main__':
