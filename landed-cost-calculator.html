@@ -130,6 +130,23 @@
   .faq-item p{color:var(--ink-soft);font-size:15px;max-width:64ch;}
   .faq-item p:last-child{margin-bottom:0;}
   @media(max-width:640px){.faq-item{padding-left:48px;}}
+  .skip-link{
+    position:absolute;
+    top:-100px;
+    left:0;
+    background:var(--ink);
+    color:var(--white);
+    padding:8px 16px;
+    z-index:100;
+    text-decoration:underline;
+    font-family:var(--mono);
+    font-size:13px;
+    border:2px solid var(--white);
+    transition:top 0.3s;
+  }
+  .skip-link:focus{
+    top:10px;
+  }
 </style>
 <style>
   /* ---------- LANDED COST CALCULATOR ---------- */
@@ -174,6 +191,23 @@
   .whatsapp-float .wa-label{position:absolute;right:70px;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:8px 12px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateX(6px);transition:opacity .2s ease, transform .2s ease;}
   .whatsapp-float:hover .wa-label{opacity:1;transform:translateX(0);}
   @media (max-width:640px){.whatsapp-float{width:52px;height:52px;bottom:18px;right:18px;}.whatsapp-float svg{width:26px;height:26px;}.whatsapp-float .wa-label{display:none;}}
+  .skip-link{
+    position:absolute;
+    top:-100px;
+    left:0;
+    background:var(--ink);
+    color:var(--white);
+    padding:8px 16px;
+    z-index:100;
+    text-decoration:underline;
+    font-family:var(--mono);
+    font-size:13px;
+    border:2px solid var(--white);
+    transition:top 0.3s;
+  }
+  .skip-link:focus{
+    top:10px;
+  }
 </style>
 <!-- ws:analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTRDBDYT7Y"></script>
