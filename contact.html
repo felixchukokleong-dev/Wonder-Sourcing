@@ -529,8 +529,23 @@ else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{l
 
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        subject: form.querySelector('input[name="subject"]').value,
+        from_name: form.querySelector('input[name="from_name"]').value,
+        redirect: form.querySelector('input[name="redirect"]').value,
+        botcheck: form.querySelector('input[name="botcheck"]').checked ? 'checked' : '',
+        company: form.querySelector('#company').value.trim(),
+        country: form.querySelector('#country').value,
+        email: form.querySelector('#email').value.trim(),
+        phone: form.querySelector('#phone').value.trim(),
+        category: form.querySelector('#category').value.trim(),
+        volume: form.querySelector('#volume').value.trim(),
+        message: form.querySelector('#message').value.trim(),
+      }),
     })
     .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
     .then(function(txt){

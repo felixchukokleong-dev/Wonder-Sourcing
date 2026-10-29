@@ -1,7 +1,7 @@
 /**
  * Serverless contact form handler for Wonder Sourcing.
  *
- * Receives POST submissions from /contact.html, injects the Web3Forms
+ * Receives POST submissions from /contact.html (JSON body), injects the Web3Forms
  * access key server-side (from Vercel Environment Variable WEB3FORMS_ACCESS_KEY),
  * and forwards the payload to Web3Forms so the key never reaches the browser.
  *
@@ -25,16 +25,26 @@ export default async function handler(request, response) {
   }
 
   try {
-    // Build FormData from the incoming body, injecting the access key
+    // Parse JSON body from the client
+    let body;
+    try {
+      body = await request.json();
+    } catch (e) {
+      return response.status(400).json({
+        success: false,
+        message: 'Invalid request body',
+      });
+    }
+
+    // Build FormData to forward to Web3Forms, injecting the access key
     const formData = new FormData();
     formData.append('access_key', accessKey);
 
     // Copy all fields from the request body, except access_key if the client sent one
-    const body = request.body;
     if (body && typeof body === 'object') {
       for (const [key, value] of Object.entries(body)) {
-        if (key !== 'access_key') {
-          formData.append(key, value);
+        if (key !== 'access_key' && value !== undefined && value !== null) {
+          formData.append(key, String(value));
         }
       }
     }
