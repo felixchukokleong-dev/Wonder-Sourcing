@@ -235,10 +235,10 @@ else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{l
         </table>
       </div>
 
-      <!-- Contact form: submits to /api/contact (Vercel serverless function).
-           The Web3Forms access key is injected server-side via WEB3FORMS_ACCESS_KEY
-           environment variable and never reaches the browser. -->
-      <form class="manifest-form reveal" data-label="SOURCING INQUIRY FORM" action="/api/contact" method="POST" onsubmit="return handleInquirySubmit(event, this);">
+      <!-- Web3Forms: delivers submissions to hello@wondersourcing.com. Free & unlimited.
+           Replace the access_key value with your own from https://web3forms.com (Settings -> Access Key). -->
+      <form class="manifest-form reveal" data-label="SOURCING INQUIRY FORM" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleInquirySubmit(event, this);">
+        <input type="hidden" name="access_key" value="de53f2bb-81fb-44ba-9cc4-f8b867a40adf">
         <input type="hidden" name="subject" value="New sourcing inquiry — wondersourcing.com">
         <input type="hidden" name="from_name" value="Wonder Sourcing website">
         <input type="hidden" name="redirect" value="https://www.wondersourcing.com/contact.html?sent=1">
@@ -529,23 +529,8 @@ else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{l
 
     fetch(form.action, {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        subject: form.querySelector('input[name="subject"]').value,
-        from_name: form.querySelector('input[name="from_name"]').value,
-        redirect: form.querySelector('input[name="redirect"]').value,
-        botcheck: form.querySelector('input[name="botcheck"]').checked ? 'checked' : '',
-        company: form.querySelector('#company').value.trim(),
-        country: form.querySelector('#country').value,
-        email: form.querySelector('#email').value.trim(),
-        phone: form.querySelector('#phone').value.trim(),
-        category: form.querySelector('#category').value.trim(),
-        volume: form.querySelector('#volume').value.trim(),
-        message: form.querySelector('#message').value.trim(),
-      }),
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
     })
     .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
     .then(function(txt){
