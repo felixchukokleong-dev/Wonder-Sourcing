@@ -212,6 +212,7 @@ else if(a.classList.contains('nav-cta')||a.closest('.cta-strip'))t('start_brief_
 else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{link_url:h});},true);
 })();</script>
 <!-- ws:analytics:end -->
+<noscript><style>.reveal{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -816,6 +817,8 @@ else if(a.closest('.blog-card')||a.closest('.related-guides'))t('guide_click',{l
     });
   },{threshold:0.15});
   els.forEach(el=>io.observe(el));
+  // Fallback: ensure content is visible after 2s even if observer doesn't fire
+  setTimeout(()=>{ els.forEach(el=>el.classList.add('in')); }, 2000);
 </script>
 
 </body>
